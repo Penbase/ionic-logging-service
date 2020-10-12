@@ -21,23 +21,27 @@ fdescribe("IonicStorageAppender", () => {
 	afterEach(() => {
 	});
 
-	/*describe("ctor", () => {
+	describe("ctor", () => {
 		it("reads already stored messages", async () => {
+			const today = new Date("2020-10-12T07:24:43.475Z");
+			jasmine.clock().mockDate(today);
+
 			const appender = new IonicStorageAppender({ ionicStorageKey: "StoredMessages" }, storage);
 			await appender.initIonicStorageAppender();
 
 			const event = new log4javascript.LoggingEvent(undefined, new Date(), log4javascript.Level.INFO, []);
 			appender.append(event);
 
+			spyOn(storage, "get").and.returnValue(Promise.resolve("[{ \"level\": \"INFO\", \"message\": [], \"timeStamp\": \"2020-10-12T07:24:43.475Z\" }]"));
 			const appender2 = new IonicStorageAppender({ ionicStorageKey: "StoredMessages" }, storage);
-      await appender2.initIonicStorageAppender();
+			await appender2.initIonicStorageAppender();
 
 			const messages = appender2.getLogMessages();
 			expect(messages.length).toBe(1);
 			expect(messages[0].timeStamp).toEqual(event.timeStamp);
 			expect(messages[0].level).toBe(event.level.toString());
 		});
-	});*/
+	});
 
 	describe("localStorageKey", () => {
 		it("throws error if configuration contains no localStorageKey", () => {
@@ -310,8 +314,8 @@ fdescribe("IonicStorageAppender", () => {
 	describe("removeLogMessages(localeStorageKey: string): void", () => {
 
 		it("messages from localStorage removed", async () => {
-      const appender = new IonicStorageAppender({ ionicStorageKey: "Removed" }, storage);
-      await appender.initIonicStorageAppender();
+			const appender = new IonicStorageAppender({ ionicStorageKey: "Removed" }, storage);
+			await appender.initIonicStorageAppender();
 
 			const event = new log4javascript.LoggingEvent(undefined, new Date(), log4javascript.Level.INFO, ["1"]);
 			appender.append(event);
