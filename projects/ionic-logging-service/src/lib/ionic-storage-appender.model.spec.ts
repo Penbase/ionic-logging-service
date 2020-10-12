@@ -1,4 +1,3 @@
-import { LogMessage } from "./log-message.model";
 import { IonicStorageAppender } from "./ionic-storage-appender.model";
 // tslint:disable:no-magic-numbers
 import * as log4javascript from "log4javascript";
@@ -7,7 +6,7 @@ import { TestBed } from "@angular/core/testing";
 import { Storage } from "@ionic/storage";
 import { IonicStorageAppenderConfiguration } from "./ionic-storage-appender.configuration";
 
-fdescribe("IonicStorageAppender", () => {
+describe("IonicStorageAppender", () => {
 	let storage: Storage;
 
 	beforeEach(async () => {
@@ -117,15 +116,18 @@ fdescribe("IonicStorageAppender", () => {
 			expect(appender2.getThreshold()).toBe(log4javascript.Level.INFO);
 		});
 
-		/*it("throws an error if value from configuration is invalid", () => {
+		it("throws an error if value from configuration is invalid", async () => {
 
 			const config: IonicStorageAppenderConfiguration = {
 				ionicStorageKey: "MyLocalStorage4",
 				threshold: "abc",
 			};
 
-			expect(() => new IonicStorageAppender(config, storage)).toThrowError("invalid level abc");
-		});*/
+			const appender = new IonicStorageAppender(config, storage);
+			await appender.initIonicStorageAppender();
+
+			expect(appender.getThreshold()).toEqual(log4javascript.Level.ALL);
+		});
 	});
 
 	describe("append(loggingEvent: log4javascript.LoggingEvent): void", () => {

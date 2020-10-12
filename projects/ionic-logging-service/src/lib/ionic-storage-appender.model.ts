@@ -69,7 +69,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		if (!this.ionicStorageKey || await this.ionicStorage.get(this.ionicStorageKey) === null) {
 			logMessages = [];
 		} else {
-      const parse = await this.ionicStorage.get(this.ionicStorageKey);
+			const parse = await this.ionicStorage.get(this.ionicStorageKey);
 			logMessages = JSON.parse(parse);
 			for (const logMessage of logMessages) {
 				// timestamps are serialized as strings
@@ -80,16 +80,22 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		return logMessages;
 	}
 
-	public async initIonicStorageAppender() {
+	public async initIonicStorageAppender(): Promise<void> {
 		// read existing logMessages
 		// tslint:disable-next-line:no-null-keyword
 		this.logMessages = await this.loadLogMessages();
 		// process remaining configuration
-		this.configure({
-			ionicStorageKey: this.configuration.ionicStorageKey,
-			maxMessages: this.configuration.maxMessages || IonicStorageAppender.maxMessagesDefault,
-			threshold: this.configuration.threshold || IonicStorageAppender.thresholdDefault,
-		});
+		console.log("initIonicStorageAppender : " + this.configuration.threshold);
+		try {
+			this.configure({
+				ionicStorageKey: this.configuration.ionicStorageKey,
+				maxMessages: this.configuration.maxMessages || IonicStorageAppender.maxMessagesDefault,
+				threshold: this.configuration.threshold || IonicStorageAppender.thresholdDefault,
+			});
+		} catch (error) {
+			Promise.reject(error);
+		}
+
 	}
 
 	/**
@@ -108,7 +114,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 *
 	 * @param configuration configuration data.
 	 */
-	public configure(configuration: IonicStorageAppenderConfiguration): void {
+	public async configure(configuration: IonicStorageAppenderConfiguration): Promise<void> {
 		if (configuration) {
 			if (configuration.ionicStorageKey && configuration.ionicStorageKey !== this.ionicStorageKey) {
 				throw new Error("ionicStorageKey must not be changed");
@@ -116,12 +122,19 @@ export class IonicStorageAppender extends log4javascript.Appender {
 			if (configuration.maxMessages) {
 				this.setMaxMessages(configuration.maxMessages);
 			}
+			console.log("threshold : " + configuration.threshold);
 			if (configuration.threshold) {
-				const convertedThreshold = LogLevelConverter.levelToLog4Javascript(
-					LogLevelConverter.levelFromString(configuration.threshold));
-				this.setThreshold(convertedThreshold);
+				try {
+					const convertedThreshold = LogLevelConverter.levelToLog4Javascript(
+						LogLevelConverter.levelFromString(configuration.threshold));
+					this.setThreshold(convertedThreshold);
+				} catch (error) {
+					Promise.reject(error);
+				}
+
 			}
 		}
+		console.log("test : " + this.getThreshold());
 	}
 
 	/**
@@ -129,7 +142,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * @param loggingEvent event to be appended.
 	 */
 	public async append(loggingEvent: log4javascript.LoggingEvent): Promise<void> {
-    console.log ("append : "+this.ionicStorageKey);
+		console.log("append : " + this.ionicStorageKey);
 		// if logMessages is already full, remove oldest element
 		while (this.logMessages.length >= this.maxMessages) {
 			this.logMessages.shift();
@@ -146,7 +159,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 
 		console.log(JSON.stringify(this.logMessages));
 		// write values to ionicStorage
-    this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
+		this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 	}
 
 	/**
