@@ -63,13 +63,13 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * @param ionicStorageKey ionic local storage key
 	 * @return stored messages
 	 */
-	public static async loadLogMessages(ionicStorageKey: string, ionicStorage: Storage): Promise<LogMessage[]> {
+	public async loadLogMessages(): Promise<LogMessage[]> {
 		let logMessages: LogMessage[];
 
-		if (!ionicStorageKey || await ionicStorage.get(ionicStorageKey) === null) {
+		if (!this.ionicStorageKey || await this.ionicStorage.get(this.ionicStorageKey) === null) {
 			logMessages = [];
 		} else {
-			const parse = await ionicStorage.get(ionicStorageKey);
+      const parse = await this.ionicStorage.get(this.ionicStorageKey);
 			logMessages = JSON.parse(parse);
 			for (const logMessage of logMessages) {
 				// timestamps are serialized as strings
@@ -83,7 +83,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	public async initIonicStorageAppender() {
 		// read existing logMessages
 		// tslint:disable-next-line:no-null-keyword
-		this.logMessages = await IonicStorageAppender.loadLogMessages(this.ionicStorageKey, this.ionicStorage);
+		this.logMessages = await this.loadLogMessages();
 		// process remaining configuration
 		this.configure({
 			ionicStorageKey: this.configuration.ionicStorageKey,
@@ -128,7 +128,8 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * Appender-specific method to append a log message.
 	 * @param loggingEvent event to be appended.
 	 */
-	public append(loggingEvent: log4javascript.LoggingEvent): void {
+	public async append(loggingEvent: log4javascript.LoggingEvent): Promise<void> {
+    console.log ("append : "+this.ionicStorageKey);
 		// if logMessages is already full, remove oldest element
 		while (this.logMessages.length >= this.maxMessages) {
 			this.logMessages.shift();
@@ -143,9 +144,9 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		};
 		this.logMessages.push(message);
 
-		//console.log(JSON.stringify(this.logMessages));
+		console.log(JSON.stringify(this.logMessages));
 		// write values to ionicStorage
-		this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
+    this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 	}
 
 	/**
