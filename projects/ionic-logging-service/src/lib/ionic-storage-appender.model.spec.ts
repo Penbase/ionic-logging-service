@@ -25,13 +25,15 @@ describe("IonicStorageAppender", () => {
 			const today = new Date("2020-10-12T07:24:43.475Z");
 			jasmine.clock().mockDate(today);
 
+			const returnValue = "[{ \"level\": \"INFO\", \"message\": [], \"timeStamp\": \"2020-10-12T07:24:43.475Z\" }]";
+
 			const appender = new IonicStorageAppender({ ionicStorageKey: "StoredMessages" }, storage);
 			await appender.initIonicStorageAppender();
 
 			const event = new log4javascript.LoggingEvent(undefined, new Date(), log4javascript.Level.INFO, []);
 			appender.append(event);
 
-			spyOn(storage, "get").and.returnValue(Promise.resolve("[{ \"level\": \"INFO\", \"message\": [], \"timeStamp\": \"2020-10-12T07:24:43.475Z\" }]"));
+			spyOn(storage, "get").and.returnValue(Promise.resolve(returnValue));
 			const appender2 = new IonicStorageAppender({ ionicStorageKey: "StoredMessages" }, storage);
 			await appender2.initIonicStorageAppender();
 
