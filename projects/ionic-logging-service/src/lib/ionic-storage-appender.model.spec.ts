@@ -44,14 +44,14 @@ describe("IonicStorageAppender", () => {
 		});
 	});
 
-	describe("localStorageKey", () => {
-		it("throws error if configuration contains no localStorageKey", () => {
+	describe("ionicStorageKey", () => {
+		it("throws error if configuration contains no ionicStorageKey", () => {
 
 			expect(() => new IonicStorageAppender({} as IonicStorageAppenderConfiguration, storage)).
 				toThrowError("ionicStorageKey must be not empty");
 		});
 
-		it("throws error if configuration contains empty localStorageKey", () => {
+		it("throws error if configuration contains empty ionicStorageKey", () => {
 
 			expect(() => new IonicStorageAppender({ ionicStorageKey: "" }, storage)).
 				toThrowError("ionicStorageKey must be not empty");
@@ -241,7 +241,7 @@ describe("IonicStorageAppender", () => {
 		});
 	});
 
-	describe("getLocalStorageKey(): string", () => {
+	describe("getIonicStorageKey(): string", () => {
 
 		it("return set value", async () => {
 			spyOn(storage, "get").and.returnValue(Promise.resolve(null));
@@ -316,7 +316,7 @@ describe("IonicStorageAppender", () => {
 		});
 	});
 
-	describe("removeLogMessages(localeStorageKey: string): void", () => {
+	describe("removeLogMessages(ionicStorageKey: string): void", () => {
 
 		it("messages from localStorage removed", async () => {
 			const appender = new IonicStorageAppender({ ionicStorageKey: "Removed" }, storage);
