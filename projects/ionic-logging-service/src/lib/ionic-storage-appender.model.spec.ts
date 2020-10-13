@@ -118,7 +118,7 @@ describe("IonicStorageAppender", () => {
 			expect(appender2.getThreshold()).toBe(log4javascript.Level.INFO);
 		});
 
-		it("throws an error if value from configuration is invalid", async () => {
+		it("Set basic lvl threshold if value from configuration is invalid", async () => {
 
 			const config: IonicStorageAppenderConfiguration = {
 				ionicStorageKey: "MyLocalStorage4",
@@ -258,10 +258,11 @@ describe("IonicStorageAppender", () => {
 
 		it("return set value", async () => {
 			spyOn(storage, "get").and.returnValue(Promise.resolve(null));
-			const appender = new IonicStorageAppender({ ionicStorageKey: "MyLocalStorage" }, storage);
+			const appender = new IonicStorageAppender({
+				ionicStorageKey: "MyLocalStorage",
+				maxMessages: 42
+			}, storage);
 			await appender.initIonicStorageAppender();
-
-			appender.setMaxMessages(42);
 			const maxMessages = appender.getMaxMessages();
 
 			expect(maxMessages).toBe(42);
