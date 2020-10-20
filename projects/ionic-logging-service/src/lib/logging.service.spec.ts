@@ -116,7 +116,6 @@ describe("LoggingService", () => {
 					expect(error).toBeDefined();
 					expect(error.message).toEqual("invalid log level xxx");
 				}
-				// expect(() => loggingService.configure(config)).toThrowError("invalid log level xxx");
 			});
 		});
 
@@ -161,7 +160,6 @@ describe("LoggingService", () => {
 					},
 				};
 
-				// expect(() => loggingService.configure(config)).toThrowError("invalid level xxx");
 				try {
 					await loggingService.configure(config);
 				} catch (error) {
@@ -290,8 +288,6 @@ describe("LoggingService", () => {
 						threshold: "xxx",
 					},
 				};
-
-				// expect(() => loggingService.configure(config)).toThrowError("invalid level xxx");
 
 				try {
 					await loggingService.configure(config);
@@ -641,7 +637,6 @@ describe("LoggingService", () => {
 				},
 			};
 
-			// expect(() => loggingService.configure(config)).toThrowError("invalid level xxx");
 			try {
 				await loggingService.configure(config, storage);
 			} catch (error) {
