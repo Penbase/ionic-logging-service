@@ -1,14 +1,16 @@
-﻿import { EventEmitter, Injectable, Optional } from "@angular/core";
+﻿import { EventEmitter, Injectable } from "@angular/core";
 
 import * as log4javascript from "log4javascript";
 
 import { AjaxAppender } from "./ajax-appender.model";
+import { IonicStorageAppender } from "./ionic-storage-appender.model";
 import { LocalStorageAppender } from "./local-storage-appender.model";
 import { LogLevelConverter } from "./log-level.converter";
 import { LogMessage } from "./log-message.model";
 import { Logger } from "./logger.model";
 import { LoggingServiceConfiguration } from "./logging-service.configuration";
 import { MemoryAppender } from "./memory-appender.model";
+import { Storage } from "@ionic/storage";
 
 /**
  * Service for logging functionality.
@@ -80,7 +82,7 @@ export class LoggingService {
 	 * Configures the logging depending on the given configuration.
 	 * @param configuration configuration data.
 	 */
-	public configure(configuration?: LoggingServiceConfiguration): void {
+	public async configure(configuration?: LoggingServiceConfiguration, storage?: Storage) {
 
 		if (typeof configuration === "undefined") {
 			configuration = {};
@@ -90,6 +92,7 @@ export class LoggingService {
 		if (typeof configuration.logLevels !== "undefined") {
 			for (const level of configuration.logLevels) {
 				let logger: log4javascript.Logger;
+				console.log("configure set log levels level.loggerName=" + level.loggerName);
 				if (level.loggerName === "root") {
 					logger = log4javascript.getRootLogger();
 				} else {
@@ -123,6 +126,23 @@ export class LoggingService {
 			if (memoryAppender) {
 				log4javascript.getRootLogger().removeAppender(memoryAppender);
 				log4javascript.getRootLogger().addAppender(memoryAppender);
+			}
+		}
+
+		// configure ionicStorageAppender
+		if (typeof configuration.ionicStorageAppender !== "undefined" && typeof storage !== "undefined") {
+			console.log("configure ionicStorageAppender");
+			const ionicStorageAppender = new IonicStorageAppender(configuration.ionicStorageAppender, storage);
+			console.log("configure ionicStorageAppender 2 ");
+			await ionicStorageAppender.initIonicStorageAppender();
+			console.log("configure ionicStorageAppender 3 ");
+			if (typeof configuration.logLevels !== "undefined") {
+				for (const level of configuration.logLevels) {
+					console.log("configure ionicStorageAppender level.loggerName=" + level.loggerName);
+					log4javascript.getLogger(level.loggerName).addAppender(ionicStorageAppender);
+				}
+			} else {
+				log4javascript.getRootLogger().addAppender(ionicStorageAppender);
 			}
 		}
 
@@ -181,6 +201,15 @@ export class LoggingService {
 	}
 
 	/**
+	 * Loads the log messages written by the ionicStorageAppender with the given key.
+	 * @param ionicStorageKey key for the ionic storage
+	 * @returns log messages
+	 */
+	public async getLogMessagesFromIonicStorage(ionicStorageKey: string): Promise<LogMessage[]> {
+		return await IonicStorageAppender.loadLogMessages(ionicStorageKey);
+	}
+
+	/**
 	 * Remove all log messages.
 	 */
 	public removeLogMessages(): void {
@@ -194,6 +223,15 @@ export class LoggingService {
 	 */
 	public removeLogMessagesFromLocalStorage(localStorageKey: string): void {
 		LocalStorageAppender.removeLogMessages(localStorageKey);
+		this.logMessagesChanged.emit();
+	}
+
+	/**
+	 * Removes the log messages written by the IonicStorageAppender with the given key.
+	 * @param localStorageKey key for the local storage
+	 */
+	public async removeLogMessagesFromIonicStorage(ionicStorageKey: string) {
+		await IonicStorageAppender.removeLogMessages(ionicStorageKey);
 		this.logMessagesChanged.emit();
 	}
 }
