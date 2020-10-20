@@ -324,10 +324,10 @@ describe("IonicStorageAppender", () => {
 
 			const event = new log4javascript.LoggingEvent(undefined, new Date(), log4javascript.Level.INFO, ["1"]);
 			appender.append(event);
-			await expect(await storage.get(appender.getIonicStorageKey())).toBeDefined();
+			await expect(localStorage.getItem(appender.getIonicStorageKey())).toBeDefined();
 
-			IonicStorageAppender.removeLogMessages(appender.getIonicStorageKey());
-			await expect(await storage.get(appender.getIonicStorageKey())).toBeNull();
+			appender.removeLogMessages();
+			await expect(localStorage.getItem(appender.getIonicStorageKey())).toBeNull();
 		});
 	});
 
