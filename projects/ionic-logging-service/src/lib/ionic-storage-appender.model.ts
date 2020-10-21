@@ -26,6 +26,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	/**
 	 * Creates a new instance of the appender.
 	 * @param configuration configuration for the appender.
+	 * @param storage the Ionic starage database. We assume that there is one instance of storage.
 	 */
 	constructor(configuration: IonicStorageAppenderConfiguration, storage: Storage) {
 		super();
@@ -40,6 +41,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 			throw new Error("ionicStorageKey must be not empty");
 		}
 
+		// We assume there is only one instance of storage.
 		IonicStorageAppender.ionicStorage = storage;
 		this.ionicStorageKey = configuration.ionicStorageKey;
 	}
