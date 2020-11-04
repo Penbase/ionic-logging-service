@@ -68,7 +68,7 @@ pipeline {
             steps {
                 script {
                     def res = "";
-                    res += ":pencil: Mise en production de *"+PROJECT_NAME+" v${env.TAG_NAME}* terminée"
+                    res += ":pencil: Mise en production de *"+PROJECT_NAME+" ${env.TAG_NAME}* terminée"
                     res += "\nDependence npm : `\"@penbase/ionic-logging-service\" : \"${env.TAG_NAME}\"`"
                     println res
 
