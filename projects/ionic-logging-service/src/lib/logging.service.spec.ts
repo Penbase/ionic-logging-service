@@ -1,31 +1,34 @@
 ﻿// tslint:disable:no-magic-numbers
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { getTestBed, TestBed } from "@angular/core/testing";
+import { TestBed } from "@angular/core/testing";
 
 import * as log4javascript from "log4javascript";
 
 import { AjaxAppender } from "./ajax-appender.model";
+import { IonicStorageAppender } from "./ionic-storage-appender.model";
 import { LocalStorageAppender } from "./local-storage-appender.model";
-import { LogMessage } from "./log-message.model";
 import { Logger } from "./logger.model";
 import { LoggingServiceConfiguration } from "./logging-service.configuration";
 import { LoggingService } from "./logging.service";
 import { MemoryAppender } from "./memory-appender.model";
+import { IonicStorageModule, Storage } from "@ionic/storage";
 
 describe("LoggingService", () => {
 
 	let loggingService: LoggingService;
 	let httpMock: HttpTestingController;
+	let storage: Storage;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule],
+			imports: [HttpClientTestingModule, IonicStorageModule.forRoot()],
 			providers: [
 				LoggingService,
 			],
 		});
 		loggingService = TestBed.inject(LoggingService);
 		httpMock = TestBed.inject(HttpTestingController);
+		storage = TestBed.inject(Storage);
 	});
 
 	afterEach(() => {
@@ -100,14 +103,19 @@ describe("LoggingService", () => {
 				expect(internalLoggerRoot.getEffectiveLevel()).toBe(log4javascript.Level.WARN);
 			});
 
-			it("throws error if custom logger has an invalid log level", () => {
+			it("throws error if custom logger has an invalid log level", async () => {
 
 				const logLevels = [{ loggerName: "me", logLevel: "xxx" }];
 				const config: LoggingServiceConfiguration = {
 					logLevels,
 				};
 
-				expect(() => loggingService.configure(config)).toThrowError("invalid log level xxx");
+				try {
+					await loggingService.configure(config);
+				} catch (error) {
+					expect(error).toBeDefined();
+					expect(error.message).toEqual("invalid log level xxx");
+				}
 			});
 		});
 
@@ -143,7 +151,7 @@ describe("LoggingService", () => {
 				expect(newAppenderCount).toBe(oldAppenderCount + 1);
 			});
 
-			it("throws error if ajaxAppender has an invalid threshold", () => {
+			it("throws error if ajaxAppender has an invalid threshold", async () => {
 
 				const config: LoggingServiceConfiguration = {
 					ajaxAppender: {
@@ -152,7 +160,12 @@ describe("LoggingService", () => {
 					},
 				};
 
-				expect(() => loggingService.configure(config)).toThrowError("invalid level xxx");
+				try {
+					await loggingService.configure(config);
+				} catch (error) {
+					expect(error).toBeDefined();
+					expect(error.message).toEqual("invalid level xxx");
+				}
 			});
 
 			it("ajaxAppender has default threshold of WARN", () => {
@@ -267,7 +280,7 @@ describe("LoggingService", () => {
 				expect(newAppenderCount).toBe(oldAppenderCount + 1);
 			});
 
-			it("throws error if localStorageAppender has an invalid threshold", () => {
+			it("throws error if localStorageAppender has an invalid threshold", async () => {
 
 				const config: LoggingServiceConfiguration = {
 					localStorageAppender: {
@@ -276,7 +289,12 @@ describe("LoggingService", () => {
 					},
 				};
 
-				expect(() => loggingService.configure(config)).toThrowError("invalid level xxx");
+				try {
+					await loggingService.configure(config);
+				} catch (error) {
+					expect(error).toBeDefined();
+					expect(error.message).toEqual("invalid level xxx");
+				}
 			});
 
 			it("localStorageAppender has default threshold of WARN", () => {
@@ -577,4 +595,121 @@ describe("LoggingService", () => {
 			loggingService.removeLogMessagesFromLocalStorage("xxx");
 		});
 	});
+
+	describe("ionicStorageAppender", () => {
+		it("adds no ionicStorageAppender if not configured", () => {
+
+			const config: LoggingServiceConfiguration = {
+			};
+
+			const internalLogger = new Logger().getInternalLogger();
+			const oldAppenderCount = internalLogger.getEffectiveAppenders().length;
+
+			loggingService.configure(config, storage);
+
+			const newAppenderCount = internalLogger.getEffectiveAppenders().length;
+			expect(newAppenderCount).toBe(oldAppenderCount);
+		});
+
+		it("adds ionicStorageAppender if configured", () => {
+
+			const config: LoggingServiceConfiguration = {
+				localStorageAppender: {
+					localStorageKey: "myLocalStorage",
+				},
+			};
+
+			const internalLogger = new Logger().getInternalLogger();
+			const oldAppenderCount = internalLogger.getEffectiveAppenders().length;
+
+			loggingService.configure(config, storage);
+
+			const newAppenderCount = internalLogger.getEffectiveAppenders().length;
+			expect(newAppenderCount).toBe(oldAppenderCount + 1);
+		});
+
+		it("throws error if ionicStorageAppender has an invalid threshold", async () => {
+
+			const config: LoggingServiceConfiguration = {
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
+					threshold: "xxx",
+				},
+			};
+
+			try {
+				await loggingService.configure(config, storage);
+			} catch (error) {
+				expect(error).toBeDefined();
+				expect(error.message).toEqual("invalid level xxx");
+			}
+		});
+
+		it("ionicStorageAppender has default threshold of WARN", async () => {
+
+			const config: LoggingServiceConfiguration = {
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
+				},
+			};
+
+			await loggingService.configure(config, storage);
+			const appenders = new Logger().getInternalLogger().getEffectiveAppenders();
+			const ionicStorageAppender = appenders.find(
+				(a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as IonicStorageAppender;
+
+			expect(ionicStorageAppender.getThreshold()).toBe(log4javascript.Level.WARN);
+		});
+
+		it("ionicStorageAppender has given threshold", async () => {
+
+			const config: LoggingServiceConfiguration = {
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
+					threshold: "INFO",
+				},
+			};
+
+			await loggingService.configure(config, storage);
+			const appenders = new Logger().getInternalLogger().getEffectiveAppenders();
+			const ionicStorageAppender = appenders.find(
+				(a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as IonicStorageAppender;
+
+			expect(ionicStorageAppender.getThreshold()).toBe(log4javascript.Level.INFO);
+		});
+
+		it("ionicStorageAppender has default max messages of 250", async () => {
+
+			const config: LoggingServiceConfiguration = {
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
+				},
+			};
+
+			await loggingService.configure(config, storage);
+			const appenders = new Logger().getInternalLogger().getEffectiveAppenders();
+			const ionicStorageAppender = appenders.find(
+				(a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as IonicStorageAppender;
+
+			expect(ionicStorageAppender.getMaxMessages()).toBe(250);
+		});
+
+		it("ionicStorageAppender has given max messages", async () => {
+
+			const config: LoggingServiceConfiguration = {
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
+					maxMessages: 1234,
+				},
+			};
+
+			await loggingService.configure(config, storage);
+			const appenders = new Logger().getInternalLogger().getEffectiveAppenders();
+			const ionicStorageAppender = appenders.find(
+				(a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as LocalStorageAppender;
+
+			expect(ionicStorageAppender.getMaxMessages()).toBe(1234);
+		});
+	});
+
 });

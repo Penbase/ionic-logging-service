@@ -23,23 +23,10 @@ import { Storage } from "@ionic/storage";
  */
 export class IonicStorageAppender extends log4javascript.Appender {
 
-	private static maxMessagesDefault = 250;
-	private static thresholdDefault = "WARN";
-
-	private maxMessages: number;
-
-	public ionicStorage: Storage;
-
-	// tslint:disable-next-line:completed-docs
-	private ionicStorageKey: string;
-	// tslint:disable-next-line:completed-docs
-	private logMessages: LogMessage[];
-
-	private configuration: IonicStorageAppenderConfiguration;
-
 	/**
 	 * Creates a new instance of the appender.
 	 * @param configuration configuration for the appender.
+	 * @param storage the Ionic storage database. We assume that there is one instance of storage.
 	 */
 	constructor(configuration: IonicStorageAppenderConfiguration, storage: Storage) {
 		super();
@@ -54,22 +41,36 @@ export class IonicStorageAppender extends log4javascript.Appender {
 			throw new Error("ionicStorageKey must be not empty");
 		}
 
-		this.ionicStorage = storage;
+		// We assume there is only one instance of storage.
+		IonicStorageAppender.ionicStorage = storage;
 		this.ionicStorageKey = configuration.ionicStorageKey;
 	}
 
+	private static maxMessagesDefault = 250;
+	private static thresholdDefault = "WARN";
+	private static ionicStorage: Storage;
+
+	private maxMessages: number;
+
+
+	// tslint:disable-next-line:completed-docs
+	private ionicStorageKey: string;
+	// tslint:disable-next-line:completed-docs
+	private logMessages: LogMessage[];
+
+	private configuration: IonicStorageAppenderConfiguration;
+
 	/**
 	 * Load log messages from ionic local storage which are stored there under the given key.
-	 * @param ionicStorageKey ionic local storage key
 	 * @return stored messages
 	 */
-	public async loadLogMessages(): Promise<LogMessage[]> {
+	public static async loadLogMessages(ionicStorageKey: string): Promise<LogMessage[]> {
 		let logMessages: LogMessage[];
 
-		if (!this.ionicStorageKey || await this.ionicStorage.get(this.ionicStorageKey) === null) {
+		if (!ionicStorageKey || await IonicStorageAppender.ionicStorage.get(ionicStorageKey) === null) {
 			logMessages = [];
 		} else {
-			const parse = await this.ionicStorage.get(this.ionicStorageKey);
+			const parse = await IonicStorageAppender.ionicStorage.get(ionicStorageKey);
 			logMessages = JSON.parse(parse);
 			for (const logMessage of logMessages) {
 				// timestamps are serialized as strings
@@ -80,10 +81,21 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		return logMessages;
 	}
 
+	/**
+	 * Remove log messages from ionic local storage which are stored there under the given key.
+	 * @param ionicStorageKey local storage key
+	 */
+	public static async removeLogMessages(ionicStorageKey: string) {
+		return await IonicStorageAppender.ionicStorage.remove(ionicStorageKey);
+	}
+
+	/**
+	 * Initialize the appender.
+	 */
 	public async initIonicStorageAppender(): Promise<void> {
 		// read existing logMessages
 		// tslint:disable-next-line:no-null-keyword
-		this.logMessages = await this.loadLogMessages();
+		this.logMessages = await IonicStorageAppender.loadLogMessages(this.ionicStorageKey);
 		// process remaining configuration
 		console.log("initIonicStorageAppender : " + this.configuration.threshold);
 		try {
@@ -96,14 +108,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 			Promise.reject(error);
 		}
 
-	}
-
-	/**
-	 * Remove log messages from ionic local storage which are stored there under the given key.
-	 * @param ionicStorageKey local storage key
-	 */
-	public removeLogMessages(): void {
-		this.ionicStorage.remove(this.ionicStorageKey);
 	}
 
 	/**
@@ -159,7 +163,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 
 		console.log(JSON.stringify(this.logMessages));
 		// write values to ionicStorage
-		this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
+		IonicStorageAppender.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 	}
 
 	/**
@@ -202,7 +206,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 				}
 
 				// write values to ionicStorage
-				this.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
+				IonicStorageAppender.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 			}
 		}
 	}
@@ -222,7 +226,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 */
 	public clearLog(): void {
 		this.logMessages = [];
-		this.ionicStorage.remove(this.ionicStorageKey);
+		IonicStorageAppender.ionicStorage.remove(this.ionicStorageKey);
 	}
 
 }
