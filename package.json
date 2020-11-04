@@ -30,7 +30,7 @@
     "test-compodoc-viewer": "cd projects/ionic-logging-viewer && compodoc --coverageTest 100 && cd ../..",
     "test-watch-service": "ng test ionic-logging-service --code-coverage",
 		"test-watch-viewer": "ng test ionic-logging-viewer --code-coverage",
-		"test-ci": "ng test --browsers ChromeHeadless --watch=false",
+		"test-ci": "npm run test-service --browsers ChromeHeadless --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e --project ionic-logging-viewer-app-e2e",
     "codecov": "codecov",
