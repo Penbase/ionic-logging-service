@@ -50,7 +50,7 @@ pipeline {
                   sh "npm run test-ci"
                   if (env.TAG_NAME) {
                     updateVersion(env.TAG_NAME);
-                    sh "npm run build"
+                    sh "npm run build-service"
                     sh "cd " + DIST_LOCATION + " && " + " npm publish"
                   } else {
                     sh "echo No tag found. There is nothing to build and publish"

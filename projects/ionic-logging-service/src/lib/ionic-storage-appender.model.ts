@@ -48,7 +48,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 
 	private static maxMessagesDefault = 250;
 	private static thresholdDefault = "WARN";
-	private static ionicStorage: Storage;
+	private static ionicStorage: Storage = undefined;
 
 	private maxMessages: number;
 
@@ -86,7 +86,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * @param ionicStorageKey local storage key
 	 */
 	public static async removeLogMessages(ionicStorageKey: string) {
-		return await IonicStorageAppender.ionicStorage.remove(ionicStorageKey);
+		return IonicStorageAppender.ionicStorage.remove(ionicStorageKey);
 	}
 
 	/**
