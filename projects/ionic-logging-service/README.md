@@ -175,6 +175,10 @@ With `localStorageAppender`, you add an additional appender of type `LocalStorag
 
 With `memoryAppender`, it is possible to configure the `MemoryAppender`, which keeps log messages in the memory.
 
+### ionicAppender
+
+With `ionicAppender`, it is possible to configure the `IonicStorageAppender`, which keeps log messages in the ionic storage memory.
+
 ## API
 
 see [API documentation](https://ritzlgrmft.github.io/ionic-logging-service//service/index.html).
