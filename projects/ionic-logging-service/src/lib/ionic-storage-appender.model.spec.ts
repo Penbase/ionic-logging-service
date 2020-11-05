@@ -326,7 +326,7 @@ describe("IonicStorageAppender", () => {
 			appender.append(event);
 			await expect(await storage.get(appender.getIonicStorageKey())).toBeDefined();
 
-			IonicStorageAppender.removeLogMessages(appender.getIonicStorageKey());
+			await IonicStorageAppender.removeLogMessages(appender.getIonicStorageKey());
 			await expect(await storage.get(appender.getIonicStorageKey())).toBeNull();
 		});
 	});
