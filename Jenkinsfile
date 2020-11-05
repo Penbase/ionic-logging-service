@@ -6,7 +6,6 @@ import hudson.model.*
 
 // à laisser en dehors de la pipeline
 def FULL_BUILD = currentBuild.rawBuild.getCause(jenkins.branch.BranchEventCause) == null && currentBuild.rawBuild.getCause(org.jenkinsci.plugins.workflow.cps.replay.ReplayCause)?.getOriginal()?.getCause(jenkins.branch.BranchEventCause) == null
-//currentBuild.description = FULL_BUILD ? '<span style="color: red"><b>FULL BUILD</b> (with integration tests)</span>' : 'SIMPLE BUILD (no integration tests)'
 
 pipeline {
     agent {
@@ -110,7 +109,5 @@ def updateVersion(String newVersion) {
     }
     packageJson.version = newVersion
     writeJSON file: VERSION_LOCATION, json: packageJson
-    // def packageJson2 = readJSON file: VERSION_LOCATION
-    // sh "echo packageJson2.version=" + packageJson2.version
 }
 
