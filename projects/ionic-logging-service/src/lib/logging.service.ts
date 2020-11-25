@@ -92,7 +92,6 @@ export class LoggingService {
 		if (typeof configuration.logLevels !== "undefined") {
 			for (const level of configuration.logLevels) {
 				let logger: log4javascript.Logger;
-				console.log("configure set log levels level.loggerName=" + level.loggerName);
 				if (level.loggerName === "root") {
 					logger = log4javascript.getRootLogger();
 				} else {
@@ -131,7 +130,6 @@ export class LoggingService {
 
 		// configure ionicStorageAppender
 		if (typeof configuration.ionicStorageAppender !== "undefined" && typeof storage !== "undefined") {
-			console.log("configure ionicStorageAppender");
 			const ionicStorageAppender = new IonicStorageAppender(configuration.ionicStorageAppender, storage);
 			await ionicStorageAppender.initIonicStorageAppender();
 			if (typeof configuration.logLevels !== "undefined") {
