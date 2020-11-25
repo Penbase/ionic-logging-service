@@ -97,7 +97,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		// tslint:disable-next-line:no-null-keyword
 		this.logMessages = await IonicStorageAppender.loadLogMessages(this.ionicStorageKey);
 		// process remaining configuration
-		console.log("initIonicStorageAppender : " + this.configuration.threshold);
 		try {
 			this.configure({
 				ionicStorageKey: this.configuration.ionicStorageKey,
@@ -126,7 +125,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 			if (configuration.maxMessages) {
 				this.setMaxMessages(configuration.maxMessages);
 			}
-			console.log("threshold : " + configuration.threshold);
 			if (configuration.threshold) {
 				try {
 					const convertedThreshold = LogLevelConverter.levelToLog4Javascript(
@@ -138,7 +136,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 
 			}
 		}
-		console.log("test : " + this.getThreshold());
 	}
 
 	/**
@@ -146,7 +143,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * @param loggingEvent event to be appended.
 	 */
 	public async append(loggingEvent: log4javascript.LoggingEvent): Promise<void> {
-		console.log("append : " + this.ionicStorageKey);
 		// if logMessages is already full, remove oldest element
 		while (this.logMessages.length >= this.maxMessages) {
 			this.logMessages.shift();
@@ -161,7 +157,6 @@ export class IonicStorageAppender extends log4javascript.Appender {
 		};
 		this.logMessages.push(message);
 
-		console.log(JSON.stringify(this.logMessages));
 		// write values to ionicStorage
 		IonicStorageAppender.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 	}
