@@ -68,6 +68,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/AjaxAppender.html" data-type="entity-link">AjaxAppender</a>
                             </li>
                             <li class="link">
+                                <a href="classes/IonicStorageAppender.html" data-type="entity-link">IonicStorageAppender</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/LocalStorageAppender.html" data-type="entity-link">LocalStorageAppender</a>
                             </li>
                             <li class="link">
@@ -107,6 +110,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/BrowserConsoleAppenderConfiguration.html" data-type="entity-link">BrowserConsoleAppenderConfiguration</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/IonicStorageAppenderConfiguration.html" data-type="entity-link">IonicStorageAppenderConfiguration</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/LocalStorageAppenderConfiguration.html" data-type="entity-link">LocalStorageAppenderConfiguration</a>
