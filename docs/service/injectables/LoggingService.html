@@ -109,7 +109,14 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#configure">configure</a>
+                            </li>
+                            <li>
+                                <a href="#getAllIonicStorageAppenders">getAllIonicStorageAppenders</a>
+                            </li>
+                            <li>
+                                <a href="#getAllLocalStorageAppenders">getAllLocalStorageAppenders</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -121,7 +128,29 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getLogMessagesFromIonicStorage">getLogMessagesFromIonicStorage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getLogMessagesFromLocalStorage">getLogMessagesFromLocalStorage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#getRootLogger">getRootLogger</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#removeLogMessages">removeLogMessages</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#removeLogMessagesFromIonicStorage">removeLogMessagesFromIonicStorage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#removeLogMessagesFromLocalStorage">removeLogMessagesFromLocalStorage</a>
                             </li>
                         </ul>
                     </td>
@@ -146,7 +175,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/lib/logging.service.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/lib/logging.service.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -173,6 +202,7 @@
                     <span class="name">
                         <b>
                             <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
                             configure
                         </b>
                         <a href="#configure"><span class="icon ion-ios-link"></span></a>
@@ -182,15 +212,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>configure(configuration?: <a href="../injectables/LoggingService.html">LoggingServiceConfiguration</a>)</code>
+                    <code>configure(configuration?: <a href="../injectables/LoggingService.html">LoggingServiceConfiguration</a>, storage?: Storage)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">src/lib/logging.service.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/lib/logging.service.ts:91</a></div>
                 </td>
             </tr>
 
@@ -228,17 +258,121 @@
 
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>storage</td>
+                                    <td>
+                                            <code>Storage</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                     <div class="io-description">
                         
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllIonicStorageAppenders"></a>
+                    <span class="name">
+                        <b>
+                            getAllIonicStorageAppenders
+                        </b>
+                        <a href="#getAllIonicStorageAppenders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllIonicStorageAppenders()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="266"
+                            class="link-to-prism">src/lib/logging.service.ts:266</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/IonicStorageAppender.html" target="_self" >IonicStorageAppender[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>all configured IonicStorage appenders</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllLocalStorageAppenders"></a>
+                    <span class="name">
+                        <b>
+                            getAllLocalStorageAppenders
+                        </b>
+                        <a href="#getAllLocalStorageAppenders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllLocalStorageAppenders()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="259"
+                            class="link-to-prism">src/lib/logging.service.ts:259</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/LocalStorageAppender.html" target="_self" >LocalStorageAppender[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>all configured LocalStorage appenders</p>
+
                     </div>
                 </td>
             </tr>
@@ -268,8 +402,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="147"
-                            class="link-to-prism">src/lib/logging.service.ts:147</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="184"
+                            class="link-to-prism">src/lib/logging.service.ts:184</a></div>
                 </td>
             </tr>
 
@@ -348,8 +482,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="159"
-                            class="link-to-prism">src/lib/logging.service.ts:159</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="196"
+                            class="link-to-prism">src/lib/logging.service.ts:196</a></div>
                 </td>
             </tr>
 
@@ -362,6 +496,167 @@ That means you will get only the most current messages. The number of the messag
 by its maxMessages value.</p>
 </div>
 
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/LogMessage.html" target="_self" >LogMessage[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>log messages</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLogMessagesFromIonicStorage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            getLogMessagesFromIonicStorage
+                        </b>
+                        <a href="#getLogMessagesFromIonicStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLogMessagesFromIonicStorage(ionicStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="214"
+                            class="link-to-prism">src/lib/logging.service.ts:214</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Loads the log messages written by the ionicStorageAppender with the given key.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ionicStorageKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>key for the ionic storage</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/LogMessage.html" target="_self" >Promise&lt;LogMessage[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>log messages</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLogMessagesFromLocalStorage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getLogMessagesFromLocalStorage
+                        </b>
+                        <a href="#getLogMessagesFromLocalStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getLogMessagesFromLocalStorage(localStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="205"
+                            class="link-to-prism">src/lib/logging.service.ts:205</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Loads the log messages written by the LocalStorageAppender with the given key.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>localStorageKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>key for the local storage</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <div>
                     </div>
                     <div class="io-description">
@@ -400,8 +695,8 @@ by its maxMessages value.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="138"
-                            class="link-to-prism">src/lib/logging.service.ts:138</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="175"
+                            class="link-to-prism">src/lib/logging.service.ts:175</a></div>
                 </td>
             </tr>
 
@@ -420,6 +715,203 @@ by its maxMessages value.</p>
                     <div class="io-description">
                         <p>root logger</p>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeLogMessages"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            removeLogMessages
+                        </b>
+                        <a href="#removeLogMessages"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeLogMessages()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="221"
+                            class="link-to-prism">src/lib/logging.service.ts:221</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Remove all log messages.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeLogMessagesFromIonicStorage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            removeLogMessagesFromIonicStorage
+                        </b>
+                        <a href="#removeLogMessagesFromIonicStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeLogMessagesFromIonicStorage(ionicStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="246"
+                            class="link-to-prism">src/lib/logging.service.ts:246</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Removes the log messages written by the IonicStorageAppender with the given key.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ionicStorageKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeLogMessagesFromLocalStorage"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            removeLogMessagesFromLocalStorage
+                        </b>
+                        <a href="#removeLogMessagesFromLocalStorage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>removeLogMessagesFromLocalStorage(localStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="230"
+                            class="link-to-prism">src/lib/logging.service.ts:230</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Removes the log messages written by the LocalStorageAppender with the given key.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>localStorageKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>key for the local storage</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -452,7 +944,7 @@ by its maxMessages value.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/lib/logging.service.ts:37</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/lib/logging.service.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -504,47 +996,29 @@ by its maxMessages value.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/LogMessage.html" target="_self" >EventEmitter&lt;LogMessage&gt;</a></code>
+                            <i>Type : </i>    <code>EventEmitter&lt;void&gt;</code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/lib/logging.service.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/lib/logging.service.ts:36</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Event triggered when new log message was added.</p>
+                        <div class="io-description"><p>Event triggered when the log messages got (potentially) change.
+This can happen when:</p>
+<ul>
+<li>new message was added</li>
+<li>all message where removed from memory</li>
+<li>all massages where removed for one spcific LocalStorageAppender</li>
+</ul>
 </div>
                     </td>
                 </tr>
 
-                    <tr>
-                        <td class="col-md-4">
-                          <div class="io-description">
-                                  <b>Parameters :</b>
-                                  <table class="params">
-                                      <thead>
-                                          <tr>
-                                                <td>Name</td>
-                                                    <td>Description</td>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                                <tr>
-                                                        <td>message</td>
-                                                        <td>
-                                                                <code><p>new log message</p>
-</code>
-                                                        </td>
-                                                </tr>
-                                      </tbody>
-                                  </table>
-                          </div>
-                        </td>
-                    </tr>
             </tbody>
         </table>
 </section>
@@ -553,17 +1027,19 @@ by its maxMessages value.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { EventEmitter, Injectable, Optional } from &quot;@angular/core&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { EventEmitter, Injectable } from &quot;@angular/core&quot;;
 
 import * as log4javascript from &quot;log4javascript&quot;;
 
 import { AjaxAppender } from &quot;./ajax-appender.model&quot;;
+import { IonicStorageAppender } from &quot;./ionic-storage-appender.model&quot;;
 import { LocalStorageAppender } from &quot;./local-storage-appender.model&quot;;
 import { LogLevelConverter } from &quot;./log-level.converter&quot;;
 import { LogMessage } from &quot;./log-message.model&quot;;
 import { Logger } from &quot;./logger.model&quot;;
 import { LoggingServiceConfiguration } from &quot;./logging-service.configuration&quot;;
 import { MemoryAppender } from &quot;./memory-appender.model&quot;;
+import { Storage } from &quot;@ionic/storage&quot;;
 
 /**
  * Service for logging functionality.
@@ -580,10 +1056,13 @@ import { MemoryAppender } from &quot;./memory-appender.model&quot;;
 export class LoggingService {
 
 	/**
-	 * Event triggered when new log message was added.
-	 * @param message new log message
+	 * Event triggered when the log messages got (potentially) change.
+	 * This can happen when:
+	 * - new message was added
+	 * - all message where removed from memory
+	 * - all massages where removed for one spcific LocalStorageAppender
 	 */
-	public logMessagesChanged: EventEmitter&lt;LogMessage&gt;;
+	public logMessagesChanged: EventEmitter&lt;void&gt;;
 
 	/**
 	 * Event triggered when ajax appender could not send log messages to the server.
@@ -594,6 +1073,8 @@ export class LoggingService {
 	// tslint:disable-next-line:completed-docs
 	private memoryAppender: MemoryAppender;
 	private browserConsoleAppender: log4javascript.BrowserConsoleAppender;
+	private allLocalStorageAppenders: LocalStorageAppender[];
+	private allIonicStorageAppenders: IonicStorageAppender[];
 
 	/**
 	 * Creates a new instance of the service.
@@ -604,7 +1085,7 @@ export class LoggingService {
 		log4javascript.logLog.setQuietMode(true);
 
 		// create event emitter
-		this.logMessagesChanged &#x3D; new EventEmitter&lt;LogMessage&gt;();
+		this.logMessagesChanged &#x3D; new EventEmitter&lt;void&gt;();
 		this.ajaxAppenderFailed &#x3D; new EventEmitter&lt;string&gt;();
 
 		// configure appender
@@ -621,9 +1102,13 @@ export class LoggingService {
 		this.memoryAppender &#x3D; new MemoryAppender();
 		this.memoryAppender.setLayout(new log4javascript.PatternLayout(&quot;%d{HH:mm:ss,SSS} %c %m&quot;));
 		this.memoryAppender.setOnLogMessagesChangedCallback((message) &#x3D;&gt; {
-			this.logMessagesChanged.emit(message);
+			this.logMessagesChanged.emit();
 		});
 		logger.addAppender(this.memoryAppender);
+
+		// init stored appenders
+		this.allLocalStorageAppenders &#x3D; [];
+		this.allIonicStorageAppenders &#x3D; [];
 
 		this.configure();
 	}
@@ -632,7 +1117,7 @@ export class LoggingService {
 	 * Configures the logging depending on the given configuration.
 	 * @param configuration configuration data.
 	 */
-	public configure(configuration?: LoggingServiceConfiguration): void {
+	public async configure(configuration?: LoggingServiceConfiguration, storage?: Storage) {
 
 		if (typeof configuration &#x3D;&#x3D;&#x3D; &quot;undefined&quot;) {
 			configuration &#x3D; {};
@@ -642,6 +1127,7 @@ export class LoggingService {
 		if (typeof configuration.logLevels !&#x3D;&#x3D; &quot;undefined&quot;) {
 			for (const level of configuration.logLevels) {
 				let logger: log4javascript.Logger;
+				console.log(&quot;configure set log levels level.loggerName&#x3D;&quot; + level.loggerName);
 				if (level.loggerName &#x3D;&#x3D;&#x3D; &quot;root&quot;) {
 					logger &#x3D; log4javascript.getRootLogger();
 				} else {
@@ -667,7 +1153,32 @@ export class LoggingService {
 		// configure LocalStorageAppender
 		if (typeof configuration.localStorageAppender !&#x3D;&#x3D; &quot;undefined&quot;) {
 			const localStorageAppender &#x3D; new LocalStorageAppender(configuration.localStorageAppender);
+			this.allLocalStorageAppenders.push(localStorageAppender);
 			log4javascript.getRootLogger().addAppender(localStorageAppender);
+
+			// ensure that an eventual memoryAppender is behind the localStorageAppender
+			const appenders &#x3D; new Logger().getInternalLogger().getEffectiveAppenders();
+			const memoryAppender &#x3D; appenders.find((a) &#x3D;&gt; a.toString() &#x3D;&#x3D;&#x3D; &quot;Ionic.Logging.MemoryAppender&quot;) as MemoryAppender;
+			if (memoryAppender) {
+				log4javascript.getRootLogger().removeAppender(memoryAppender);
+				log4javascript.getRootLogger().addAppender(memoryAppender);
+			}
+		}
+
+		// configure ionicStorageAppender
+		if (typeof configuration.ionicStorageAppender !&#x3D;&#x3D; &quot;undefined&quot; &amp;&amp; typeof storage !&#x3D;&#x3D; &quot;undefined&quot;) {
+			console.log(&quot;configure ionicStorageAppender&quot;);
+			const ionicStorageAppender &#x3D; new IonicStorageAppender(configuration.ionicStorageAppender, storage);
+			await ionicStorageAppender.initIonicStorageAppender();
+			if (typeof configuration.logLevels !&#x3D;&#x3D; &quot;undefined&quot;) {
+				for (const level of configuration.logLevels) {
+					log4javascript.getLogger(level.loggerName).addAppender(ionicStorageAppender);
+					this.allIonicStorageAppenders.push(ionicStorageAppender);
+				}
+			} else {
+				log4javascript.getRootLogger().addAppender(ionicStorageAppender);
+				this.allIonicStorageAppenders.push(ionicStorageAppender);
+			}
 		}
 
 		// configure MemoryAppender
@@ -713,6 +1224,76 @@ export class LoggingService {
 	 */
 	public getLogMessages(): LogMessage[] {
 		return this.memoryAppender.getLogMessages();
+	}
+
+	/**
+	 * Loads the log messages written by the LocalStorageAppender with the given key.
+	 * @param localStorageKey key for the local storage
+	 * @returns log messages
+	 */
+	public getLogMessagesFromLocalStorage(localStorageKey: string): LogMessage[] {
+		return LocalStorageAppender.loadLogMessages(localStorageKey);
+	}
+
+	/**
+	 * Loads the log messages written by the ionicStorageAppender with the given key.
+	 * @param ionicStorageKey key for the ionic storage
+	 * @returns log messages
+	 */
+	public async getLogMessagesFromIonicStorage(ionicStorageKey: string): Promise&lt;LogMessage[]&gt; {
+		return await IonicStorageAppender.loadLogMessages(ionicStorageKey);
+	}
+
+	/**
+	 * Remove all log messages.
+	 */
+	public removeLogMessages(): void {
+		this.memoryAppender.removeLogMessages();
+		this.logMessagesChanged.emit();
+	}
+
+	/**
+	 * Removes the log messages written by the LocalStorageAppender with the given key.
+	 * @param localStorageKey key for the local storage
+	 */
+	public removeLogMessagesFromLocalStorage(localStorageKey: string): void {
+		// LocalStorageAppender.removeLogMessages(localStorageKey);
+		// this.logMessagesChanged.emit();
+		if (this.allLocalStorageAppenders) {
+			const localStorageAppender &#x3D; this.allLocalStorageAppenders.find(appender &#x3D;&gt; appender.getLocalStorageKey() &#x3D;&#x3D;&#x3D; localStorageKey);
+			if (localStorageAppender) {
+				localStorageAppender.clearLog();
+				this.logMessagesChanged.emit();
+			}
+		}
+	}
+
+	/**
+	 * Removes the log messages written by the IonicStorageAppender with the given key.
+	 * @param localStorageKey key for the local storage
+	 */
+	public async removeLogMessagesFromIonicStorage(ionicStorageKey: string): Promise&lt;void&gt; {
+		if (this.allIonicStorageAppenders) {
+			const ionicStorageAppender &#x3D; this.allIonicStorageAppenders.find(appender &#x3D;&gt; appender.getIonicStorageKey() &#x3D;&#x3D;&#x3D; ionicStorageKey);
+			if (ionicStorageAppender) {
+				await ionicStorageAppender.clearLog();
+				this.logMessagesChanged.emit();
+			}
+		}
+	}
+
+	/**
+	 * @returns all configured LocalStorage appenders
+	 */
+	getAllLocalStorageAppenders(): LocalStorageAppender[] {
+		return this.allLocalStorageAppenders;
+	}
+
+	/**
+	 * @returns all configured IonicStorage appenders
+	 */
+	getAllIonicStorageAppenders(): IonicStorageAppender[] {
+		return this.allIonicStorageAppenders;
 	}
 }
 </code></pre>

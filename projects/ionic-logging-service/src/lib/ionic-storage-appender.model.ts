@@ -5,6 +5,7 @@ import { LogLevelConverter } from "./log-level.converter";
 import { LogLevel } from "./log-level.model";
 import { LogMessage } from "./log-message.model";
 import { Storage } from "@ionic/storage";
+import { inspect } from "util";
 /**
  * An appender which stores the log messages in the ionic local storage (SQL lite).
  *
@@ -220,9 +221,9 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * Removes all messages from ionic storage.
 	 * Mainly for unit testing purposes.
 	 */
-	public clearLog(): void {
+	public async clearLog(): Promise<void> {
 		this.logMessages = [];
-		IonicStorageAppender.ionicStorage.remove(this.ionicStorageKey);
+		await IonicStorageAppender.ionicStorage.remove(this.ionicStorageKey);
 	}
 
 }
