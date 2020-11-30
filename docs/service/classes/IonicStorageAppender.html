@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>LocalStorageAppender</li>
+  <li>IonicStorageAppender</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,21 +60,21 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/lib/local-storage-appender.model.ts</code>
+            <code>src/lib/ionic-storage-appender.model.ts</code>
         </p>
 
             <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>An appender which stores the log messages in the browser&#39;s local storage.</p>
+                <p>An appender which stores the log messages in the ionic local storage (SQL lite).</p>
 <p>The messages are saved JSON-serialized.
 You have to configure which key is used for storing the messages.</p>
 <p>A typical configuration could be:</p>
 <p>```json</p>
 <ul>
 <li>{</li>
-<li>&quot;localStorageKey&quot;: &quot;myLogs&quot;,</li>
+<li>&quot;ionicStorageKey&quot;: &quot;myLogs&quot;,</li>
 <li>&quot;maxMessages&quot;: 500,</li>
 <li>&quot;threshold&quot;: &quot;INFO&quot;</li>
 <li>}</li>
@@ -101,19 +101,22 @@ You have to configure which key is used for storing the messages.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#append">append</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#clearLog">clearLog</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#configure">configure</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getLocalStorageKey">getLocalStorageKey</a>
+                                <a href="#getIonicStorageKey">getIonicStorageKey</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
@@ -124,11 +127,18 @@ You have to configure which key is used for storing the messages.</p>
                                 <a href="#getMaxMessages">getMaxMessages</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#initIonicStorageAppender">initIonicStorageAppender</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Static</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#loadLogMessages">loadLogMessages</a>
                             </li>
                             <li>
                                     <span class="modifier">Static</span>
+                                    <span class="modifier">Async</span>
                                 <a href="#removeLogMessages">removeLogMessages</a>
                             </li>
                             <li>
@@ -157,12 +167,12 @@ You have to configure which key is used for storing the messages.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(configuration: <a href="../interfaces/LocalStorageAppenderConfiguration.html">LocalStorageAppenderConfiguration</a>)</code>
+<code>constructor(configuration: <a href="../interfaces/IonicStorageAppenderConfiguration.html">IonicStorageAppenderConfiguration</a>, storage: Storage)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/lib/local-storage-appender.model.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/lib/ionic-storage-appender.model.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -186,7 +196,7 @@ You have to configure which key is used for storing the messages.</p>
                                                         <td>configuration</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../interfaces/LocalStorageAppenderConfiguration.html" target="_self" >LocalStorageAppenderConfiguration</a></code>
+                                                                        <code><a href="../interfaces/IonicStorageAppenderConfiguration.html" target="_self" >IonicStorageAppenderConfiguration</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -195,6 +205,22 @@ You have to configure which key is used for storing the messages.</p>
                                                     
                                                         <td>
                                                                 <code><p>configuration for the appender.</p>
+</code>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>storage</td>
+                                                  
+                                                        <td>
+                                                                    <code>Storage</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <code><p>the Ionic storage database. We assume that there is one instance of storage.</p>
 </code>
                                                         </td>
                                                 </tr>
@@ -221,6 +247,7 @@ You have to configure which key is used for storing the messages.</p>
                     <span class="name">
                         <b>
                             <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
                             append
                         </b>
                         <a href="#append"><span class="icon ion-ios-link"></span></a>
@@ -237,8 +264,8 @@ You have to configure which key is used for storing the messages.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="121"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:121</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="148"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:148</a></div>
                 </td>
             </tr>
 
@@ -282,7 +309,7 @@ You have to configure which key is used for storing the messages.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -300,6 +327,7 @@ You have to configure which key is used for storing the messages.</p>
                     <span class="name">
                         <b>
                             <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
                             clearLog
                         </b>
                         <a href="#clearLog"><span class="icon ion-ios-link"></span></a>
@@ -316,20 +344,20 @@ You have to configure which key is used for storing the messages.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="198"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:198</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="226"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:226</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Removes all messages from local storage.
+                    <div class="io-description"><p>Removes all messages from ionic storage.
 Mainly for unit testing purposes.</p>
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                 </td>
@@ -344,6 +372,7 @@ Mainly for unit testing purposes.</p>
                     <span class="name">
                         <b>
                             <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
                             configure
                         </b>
                         <a href="#configure"><span class="icon ion-ios-link"></span></a>
@@ -353,15 +382,15 @@ Mainly for unit testing purposes.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>configure(configuration: <a href="../interfaces/LocalStorageAppenderConfiguration.html">LocalStorageAppenderConfiguration</a>)</code>
+                    <code>configure(configuration: <a href="../interfaces/IonicStorageAppenderConfiguration.html">IonicStorageAppenderConfiguration</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:123</a></div>
                 </td>
             </tr>
 
@@ -370,7 +399,7 @@ Mainly for unit testing purposes.</p>
                 <td class="col-md-4">
                     <div class="io-description"><p>Configures the logging depending on the given configuration.</p>
 <p>Only the defined properties get overwritten.
-The localStorageKey cannot be modified.</p>
+The ionicStorageKey cannot be modified.</p>
 </div>
 
                     <div class="io-description">
@@ -388,7 +417,7 @@ The localStorageKey cannot be modified.</p>
                                 <tr>
                                     <td>configuration</td>
                                     <td>
-                                                <code><a href="../interfaces/LocalStorageAppenderConfiguration.html" target="_self" >LocalStorageAppenderConfiguration</a></code>
+                                                <code><a href="../interfaces/IonicStorageAppenderConfiguration.html" target="_self" >IonicStorageAppenderConfiguration</a></code>
                                     </td>
 
                                     <td>
@@ -407,7 +436,7 @@ The localStorageKey cannot be modified.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -421,35 +450,35 @@ The localStorageKey cannot be modified.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getLocalStorageKey"></a>
+                    <a name="getIonicStorageKey"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Public</span>
-                            getLocalStorageKey
+                            getIonicStorageKey
                         </b>
-                        <a href="#getLocalStorageKey"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getIonicStorageKey"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getLocalStorageKey()</code>
+                    <code>getIonicStorageKey()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="152"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:152</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="180"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:180</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Get the key which is used to store the messages in the local storage.</p>
+                    <div class="io-description"><p>Get the key which is used to store the messages in the ionic local storage.</p>
 </div>
 
                     <div class="io-description">
@@ -484,15 +513,15 @@ The localStorageKey cannot be modified.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="190"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:190</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="218"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:218</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Gets all messages stored in local storage.
+                    <div class="io-description"><p>Gets all messages stored in ionic storage.
 Mainly for unit testing purposes.</p>
 </div>
 
@@ -534,15 +563,15 @@ Mainly for unit testing purposes.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="159"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:159</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="187"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:187</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Get the maximum number of messages which will be stored in local storage.</p>
+                    <div class="io-description"><p>Get the maximum number of messages which will be stored in ionic local storage.</p>
 </div>
 
                     <div class="io-description">
@@ -557,10 +586,55 @@ Mainly for unit testing purposes.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="initIonicStorageAppender"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            <span class="modifier">Async</span>
+                            initIonicStorageAppender
+                        </b>
+                        <a href="#initIonicStorageAppender"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initIonicStorageAppender()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Initialize the appender.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="loadLogMessages"></a>
                     <span class="name">
                         <b>
                             <span class="modifier">Static</span>
+                            <span class="modifier">Async</span>
                             loadLogMessages
                         </b>
                         <a href="#loadLogMessages"><span class="icon ion-ios-link"></span></a>
@@ -570,22 +644,22 @@ Mainly for unit testing purposes.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>loadLogMessages(localStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>loadLogMessages(ionicStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:68</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Load log messages from local storage which are stored there under the given key.</p>
+                    <div class="io-description"><p>Load log messages from ionic local storage which are stored there under the given key.</p>
 </div>
 
                     <div class="io-description">
@@ -596,12 +670,11 @@ Mainly for unit testing purposes.</p>
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
-                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>localStorageKey</td>
+                                    <td>ionicStorageKey</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -611,10 +684,6 @@ Mainly for unit testing purposes.</p>
                                     </td>
 
 
-                                    <td>
-                                        <p>local storage key</p>
-
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -622,7 +691,7 @@ Mainly for unit testing purposes.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/LogMessage.html" target="_self" >LogMessage[]</a></code>
+                        <b>Returns : </b>        <code><a href="../interfaces/LogMessage.html" target="_self" >Promise&lt;LogMessage[]&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -641,6 +710,7 @@ Mainly for unit testing purposes.</p>
                     <span class="name">
                         <b>
                             <span class="modifier">Static</span>
+                            <span class="modifier">Async</span>
                             removeLogMessages
                         </b>
                         <a href="#removeLogMessages"><span class="icon ion-ios-link"></span></a>
@@ -650,7 +720,7 @@ Mainly for unit testing purposes.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>removeLogMessages(localStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>removeLogMessages(ionicStorageKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -658,14 +728,14 @@ Mainly for unit testing purposes.</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:89</a></div>
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:89</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Remove log messages from local storage which are stored there under the given key.</p>
+                    <div class="io-description"><p>Remove log messages from ionic local storage which are stored there under the given key.</p>
 </div>
 
                     <div class="io-description">
@@ -681,7 +751,7 @@ Mainly for unit testing purposes.</p>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>localStorageKey</td>
+                                    <td>ionicStorageKey</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
@@ -702,7 +772,7 @@ Mainly for unit testing purposes.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>    <code>{}</code>
 
                     </div>
                     <div class="io-description">
@@ -736,8 +806,8 @@ Mainly for unit testing purposes.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="169"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:169</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="197"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:197</a></div>
                 </td>
             </tr>
 
@@ -816,8 +886,8 @@ Mainly for unit testing purposes.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="145"
-                            class="link-to-prism">src/lib/local-storage-appender.model.ts:145</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="173"
+                            class="link-to-prism">src/lib/ionic-storage-appender.model.ts:173</a></div>
                 </td>
             </tr>
 
@@ -854,13 +924,14 @@ Mainly for unit testing purposes.</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as log4javascript from &quot;log4javascript&quot;;
 
-import { LocalStorageAppenderConfiguration } from &quot;./local-storage-appender.configuration&quot;;
+import { IonicStorageAppenderConfiguration } from &quot;./ionic-storage-appender.configuration&quot;;
 import { LogLevelConverter } from &quot;./log-level.converter&quot;;
 import { LogLevel } from &quot;./log-level.model&quot;;
 import { LogMessage } from &quot;./log-message.model&quot;;
-
+import { Storage } from &quot;@ionic/storage&quot;;
+import { inspect } from &quot;util&quot;;
 /**
- * An appender which stores the log messages in the browser&#x27;s local storage.
+ * An appender which stores the log messages in the ionic local storage (SQL lite).
  *
  * The messages are saved JSON-serialized.
  * You have to configure which key is used for storing the messages.
@@ -869,64 +940,63 @@ import { LogMessage } from &quot;./log-message.model&quot;;
  *
  * &#x60;&#x60;&#x60;json
  * {
- *   &quot;localStorageKey&quot;: &quot;myLogs&quot;,
+ *   &quot;ionicStorageKey&quot;: &quot;myLogs&quot;,
  *   &quot;maxMessages&quot;: 500,
  *   &quot;threshold&quot;: &quot;INFO&quot;
  * }
  * &#x60;&#x60;&#x60;
  */
-export class LocalStorageAppender extends log4javascript.Appender {
-
-	private static maxMessagesDefault &#x3D; 250;
-	private static thresholdDefault &#x3D; &quot;WARN&quot;;
-
-	private maxMessages: number;
-
-	// tslint:disable-next-line:completed-docs
-	private localStorageKey: string;
-	// tslint:disable-next-line:completed-docs
-	private logMessages: LogMessage[];
+export class IonicStorageAppender extends log4javascript.Appender {
 
 	/**
 	 * Creates a new instance of the appender.
 	 * @param configuration configuration for the appender.
+	 * @param storage the Ionic storage database. We assume that there is one instance of storage.
 	 */
-	constructor(configuration: LocalStorageAppenderConfiguration) {
+	constructor(configuration: IonicStorageAppenderConfiguration, storage: Storage) {
 		super();
+
+		this.configuration &#x3D; configuration;
 
 		if (!configuration) {
 			throw new Error(&quot;configuration must be not empty&quot;);
 		}
 		// tslint:disable-next-line:no-null-keyword
-		if (!configuration.localStorageKey || configuration.localStorageKey &#x3D;&#x3D;&#x3D; &quot;&quot;) {
-			throw new Error(&quot;localStorageKey must be not empty&quot;);
+		if (!configuration.ionicStorageKey || configuration.ionicStorageKey &#x3D;&#x3D;&#x3D; &quot;&quot;) {
+			throw new Error(&quot;ionicStorageKey must be not empty&quot;);
 		}
-		this.localStorageKey &#x3D; configuration.localStorageKey;
 
-		// read existing logMessages
-		// tslint:disable-next-line:no-null-keyword
-		this.logMessages &#x3D; LocalStorageAppender.loadLogMessages(this.localStorageKey);
-
-		// process remaining configuration
-		this.configure({
-			localStorageKey: configuration.localStorageKey,
-			maxMessages: configuration.maxMessages || LocalStorageAppender.maxMessagesDefault,
-			threshold: configuration.threshold || LocalStorageAppender.thresholdDefault,
-		});
+		// We assume there is only one instance of storage.
+		IonicStorageAppender.ionicStorage &#x3D; storage;
+		this.ionicStorageKey &#x3D; configuration.ionicStorageKey;
 	}
 
+	private static maxMessagesDefault &#x3D; 250;
+	private static thresholdDefault &#x3D; &quot;WARN&quot;;
+	private static ionicStorage: Storage &#x3D; undefined;
+
+	private maxMessages: number;
+
+
+	// tslint:disable-next-line:completed-docs
+	private ionicStorageKey: string;
+	// tslint:disable-next-line:completed-docs
+	private logMessages: LogMessage[];
+
+	private configuration: IonicStorageAppenderConfiguration;
+
 	/**
-	 * Load log messages from local storage which are stored there under the given key.
-	 * @param localStorageKey local storage key
+	 * Load log messages from ionic local storage which are stored there under the given key.
 	 * @return stored messages
 	 */
-	public static loadLogMessages(localStorageKey: string): LogMessage[] {
+	public static async loadLogMessages(ionicStorageKey: string): Promise&lt;LogMessage[]&gt; {
 		let logMessages: LogMessage[];
 
-		if (!localStorageKey || localStorage.getItem(localStorageKey) &#x3D;&#x3D;&#x3D; null) {
+		if (!ionicStorageKey || await IonicStorageAppender.ionicStorage.get(ionicStorageKey) &#x3D;&#x3D;&#x3D; null) {
 			logMessages &#x3D; [];
 		} else {
-			logMessages &#x3D; JSON.parse(localStorage.getItem(localStorageKey));
+			const parse &#x3D; await IonicStorageAppender.ionicStorage.get(ionicStorageKey);
+			logMessages &#x3D; JSON.parse(parse);
 			for (const logMessage of logMessages) {
 				// timestamps are serialized as strings
 				logMessage.timeStamp &#x3D; new Date(logMessage.timeStamp);
@@ -937,33 +1007,60 @@ export class LocalStorageAppender extends log4javascript.Appender {
 	}
 
 	/**
-	 * Remove log messages from local storage which are stored there under the given key.
-	 * @param localStorageKey local storage key
+	 * Remove log messages from ionic local storage which are stored there under the given key.
+	 * @param ionicStorageKey local storage key
 	 */
-	public static removeLogMessages(localStorageKey: string): void {
-		localStorage.removeItem(localStorageKey);
+	public static async removeLogMessages(ionicStorageKey: string) {
+		return IonicStorageAppender.ionicStorage.remove(ionicStorageKey);
+	}
+
+	/**
+	 * Initialize the appender.
+	 */
+	public async initIonicStorageAppender(): Promise&lt;void&gt; {
+		await IonicStorageAppender.ionicStorage.ready();
+		// read existing logMessages
+		// tslint:disable-next-line:no-null-keyword
+		this.logMessages &#x3D; await IonicStorageAppender.loadLogMessages(this.ionicStorageKey);
+		// process remaining configuration
+		console.log(&quot;initIonicStorageAppender : &quot; + this.configuration.threshold);
+		try {
+			this.configure({
+				ionicStorageKey: this.configuration.ionicStorageKey,
+				maxMessages: this.configuration.maxMessages || IonicStorageAppender.maxMessagesDefault,
+				threshold: this.configuration.threshold || IonicStorageAppender.thresholdDefault,
+			});
+		} catch (error) {
+			Promise.reject(error);
+		}
+
 	}
 
 	/**
 	 * Configures the logging depending on the given configuration.
 	 *
 	 * Only the defined properties get overwritten.
-	 * The localStorageKey cannot be modified.
+	 * The ionicStorageKey cannot be modified.
 	 *
 	 * @param configuration configuration data.
 	 */
-	public configure(configuration: LocalStorageAppenderConfiguration): void {
+	public async configure(configuration: IonicStorageAppenderConfiguration): Promise&lt;void&gt; {
 		if (configuration) {
-			if (configuration.localStorageKey &amp;&amp; configuration.localStorageKey !&#x3D;&#x3D; this.localStorageKey) {
-				throw new Error(&quot;localStorageKey must not be changed&quot;);
+			if (configuration.ionicStorageKey &amp;&amp; configuration.ionicStorageKey !&#x3D;&#x3D; this.ionicStorageKey) {
+				throw new Error(&quot;ionicStorageKey must not be changed&quot;);
 			}
 			if (configuration.maxMessages) {
 				this.setMaxMessages(configuration.maxMessages);
 			}
 			if (configuration.threshold) {
-				const convertedThreshold &#x3D; LogLevelConverter.levelToLog4Javascript(
-					LogLevelConverter.levelFromString(configuration.threshold));
-				this.setThreshold(convertedThreshold);
+				try {
+					const convertedThreshold &#x3D; LogLevelConverter.levelToLog4Javascript(
+						LogLevelConverter.levelFromString(configuration.threshold));
+					this.setThreshold(convertedThreshold);
+				} catch (error) {
+					Promise.reject(error);
+				}
+
 			}
 		}
 	}
@@ -972,7 +1069,8 @@ export class LocalStorageAppender extends log4javascript.Appender {
 	 * Appender-specific method to append a log message.
 	 * @param loggingEvent event to be appended.
 	 */
-	public append(loggingEvent: log4javascript.LoggingEvent): void {
+	public async append(loggingEvent: log4javascript.LoggingEvent): Promise&lt;void&gt; {
+		console.log(&#x27;append&#x27;)
 		// if logMessages is already full, remove oldest element
 		while (this.logMessages.length &gt;&#x3D; this.maxMessages) {
 			this.logMessages.shift();
@@ -987,8 +1085,8 @@ export class LocalStorageAppender extends log4javascript.Appender {
 		};
 		this.logMessages.push(message);
 
-		// write values to localStorage
-		localStorage.setItem(this.localStorageKey, JSON.stringify(this.logMessages));
+		// write values to ionicStorage
+		IonicStorageAppender.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages)).then(value &#x3D;&gt; console.log(&#x27;append done&#x27;));
 	}
 
 	/**
@@ -997,18 +1095,18 @@ export class LocalStorageAppender extends log4javascript.Appender {
 	 * @return appender&#x27;s name
 	 */
 	public toString(): string {
-		return &quot;Ionic.Logging.LocalStorageAppender&quot;;
+		return &quot;Ionic.Logging.IonicStorageAppender&quot;;
 	}
 
 	/**
-	 * Get the key which is used to store the messages in the local storage.
+	 * Get the key which is used to store the messages in the ionic local storage.
 	 */
-	public getLocalStorageKey(): string {
-		return this.localStorageKey;
+	public getIonicStorageKey(): string {
+		return this.ionicStorageKey;
 	}
 
 	/**
-	 * Get the maximum number of messages which will be stored in local storage.
+	 * Get the maximum number of messages which will be stored in ionic local storage.
 	 */
 	public getMaxMessages(): number {
 		return this.maxMessages;
@@ -1030,29 +1128,34 @@ export class LocalStorageAppender extends log4javascript.Appender {
 					this.logMessages.shift();
 				}
 
-				// write values to localStorage
-				localStorage.setItem(this.localStorageKey, JSON.stringify(this.logMessages));
+				// write values to ionicStorage
+				IonicStorageAppender.ionicStorage.set(this.ionicStorageKey, JSON.stringify(this.logMessages));
 			}
 		}
 	}
 
 	/**
-	 * Gets all messages stored in local storage.
-	 * Mainly for unit testing purposes.
-	 * @return stored messages
-	 */
+ * Gets all messages stored in ionic storage.
+ * Mainly for unit testing purposes.
+ * @return stored messages
+ */
 	public getLogMessages(): LogMessage[] {
 		return this.logMessages;
 	}
 
 	/**
-	 * Removes all messages from local storage.
+	 * Removes all messages from ionic storage.
 	 * Mainly for unit testing purposes.
 	 */
-	public clearLog(): void {
+	public async clearLog(): Promise&lt;void&gt; {
 		this.logMessages &#x3D; [];
-		localStorage.removeItem(this.localStorageKey);
+		try {
+			await IonicStorageAppender.ionicStorage.remove(this.ionicStorageKey);
+		} catch(error) {
+			console.error(&#x27;clearLog&#x27;,inspect(error))
+		}
 	}
+
 }
 </code></pre>
     </div>
@@ -1082,7 +1185,7 @@ export class LocalStorageAppender extends log4javascript.Appender {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'LocalStorageAppender.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'IonicStorageAppender.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
