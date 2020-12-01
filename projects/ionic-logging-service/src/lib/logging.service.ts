@@ -44,6 +44,8 @@ export class LoggingService {
 	// tslint:disable-next-line:completed-docs
 	private memoryAppender: MemoryAppender;
 	private browserConsoleAppender: log4javascript.BrowserConsoleAppender;
+	private allLocalStorageAppenders: LocalStorageAppender[];
+	private allIonicStorageAppenders: IonicStorageAppender[];
 
 	/**
 	 * Creates a new instance of the service.
@@ -74,6 +76,9 @@ export class LoggingService {
 			this.logMessagesChanged.emit();
 		});
 		logger.addAppender(this.memoryAppender);
+
+		this.allLocalStorageAppenders = [];
+		this.allIonicStorageAppenders = [];
 
 		this.configure();
 	}
@@ -117,6 +122,7 @@ export class LoggingService {
 		// configure LocalStorageAppender
 		if (typeof configuration.localStorageAppender !== "undefined") {
 			const localStorageAppender = new LocalStorageAppender(configuration.localStorageAppender);
+			this.allLocalStorageAppenders.push(localStorageAppender);
 			log4javascript.getRootLogger().addAppender(localStorageAppender);
 
 			// ensure that an eventual memoryAppender is behind the localStorageAppender
@@ -135,9 +141,11 @@ export class LoggingService {
 			if (typeof configuration.logLevels !== "undefined") {
 				for (const level of configuration.logLevels) {
 					log4javascript.getLogger(level.loggerName).addAppender(ionicStorageAppender);
+					this.allIonicStorageAppenders.push(ionicStorageAppender);
 				}
 			} else {
 				log4javascript.getRootLogger().addAppender(ionicStorageAppender);
+				this.allIonicStorageAppenders.push(ionicStorageAppender);
 			}
 		}
 
@@ -217,16 +225,44 @@ export class LoggingService {
 	 * @param localStorageKey key for the local storage
 	 */
 	public removeLogMessagesFromLocalStorage(localStorageKey: string): void {
-		LocalStorageAppender.removeLogMessages(localStorageKey);
-		this.logMessagesChanged.emit();
+		if (this.allLocalStorageAppenders) {
+			const localStorageAppender = this.allLocalStorageAppenders.find(appender => appender.getLocalStorageKey() === localStorageKey);
+			if (localStorageAppender) {
+				localStorageAppender.clearLog();
+				this.logMessagesChanged.emit();
+			}
+		}
 	}
 
 	/**
 	 * Removes the log messages written by the IonicStorageAppender with the given key.
 	 * @param localStorageKey key for the local storage
 	 */
-	public async removeLogMessagesFromIonicStorage(ionicStorageKey: string) {
-		await IonicStorageAppender.removeLogMessages(ionicStorageKey);
-		this.logMessagesChanged.emit();
+	public async removeLogMessagesFromIonicStorage(ionicStorageKey: string): Promise<void> {
+		await IonicStorageAppender.removeLogMessages(ionicStorageKey); if (this.allIonicStorageAppenders) {
+			this.logMessagesChanged.emit();
+			const ionicStorageAppender = this.allIonicStorageAppenders.find(appender => appender.getIonicStorageKey() === ionicStorageKey);
+			if (ionicStorageAppender) {
+				await ionicStorageAppender.clearLog();
+				this.logMessagesChanged.emit();
+			}
+		}
+	}
+
+	/**
+	 * All localStorageAppenders are stored into an array
+	 * @returns all configured LocalStorage appenders
+	 */
+	getAllLocalStorageAppenders(): LocalStorageAppender[] {
+		return this.allLocalStorageAppenders;
+	}
+
+	/**
+	 * * All ionicStorageAppenders are stored into an array
+	 * @returns all configured IonicStorage appenders
+	 */
+	getAllIonicStorageAppenders(): IonicStorageAppender[] {
+		return this.allIonicStorageAppenders;
 	}
 }
+

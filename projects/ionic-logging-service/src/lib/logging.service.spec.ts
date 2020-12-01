@@ -1,6 +1,6 @@
 ﻿// tslint:disable:no-magic-numbers
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
+import { fakeAsync, TestBed, tick } from "@angular/core/testing";
 
 import * as log4javascript from "log4javascript";
 
@@ -12,6 +12,7 @@ import { LoggingServiceConfiguration } from "./logging-service.configuration";
 import { LoggingService } from "./logging.service";
 import { MemoryAppender } from "./memory-appender.model";
 import { IonicStorageModule, Storage } from "@ionic/storage";
+import { inspect } from "util";
 
 describe("LoggingService", () => {
 
@@ -19,7 +20,7 @@ describe("LoggingService", () => {
 	let httpMock: HttpTestingController;
 	let storage: Storage;
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		TestBed.configureTestingModule({
 			imports: [HttpClientTestingModule, IonicStorageModule.forRoot()],
 			providers: [
@@ -576,7 +577,27 @@ describe("LoggingService", () => {
 
 	describe("removeLogMessagesFromLocalStorage(localStorageKey: string): void", () => {
 
-		it("removes messages", (done: () => void) => {
+		beforeEach(() => {
+			localStorage.clear();
+		});
+
+		it("removes messages", async (done: () => void) => {
+			const localStorageKey = 'xxx';
+			const loggerName = 'myLogger';
+			const config: LoggingServiceConfiguration = {
+				logLevels: [
+					{
+						loggerName,
+						logLevel: 'INFO'
+					}
+				],
+				localStorageAppender: {
+					localStorageKey: localStorageKey,
+					threshold: "INFO",
+					maxMessages: 1000
+				},
+			};
+			await loggingService.configure(config);
 
 			const messagesIn = [{
 				level: "DEBUG",
@@ -611,18 +632,18 @@ describe("LoggingService", () => {
 			expect(newAppenderCount).toBe(oldAppenderCount);
 		});
 
-		it("adds ionicStorageAppender if configured", () => {
+		it("adds ionicStorageAppender if configured", async () => {
 
 			const config: LoggingServiceConfiguration = {
-				localStorageAppender: {
-					localStorageKey: "myLocalStorage",
+				ionicStorageAppender: {
+					ionicStorageKey: "myLocalStorage",
 				},
 			};
 
 			const internalLogger = new Logger().getInternalLogger();
 			const oldAppenderCount = internalLogger.getEffectiveAppenders().length;
 
-			loggingService.configure(config, storage);
+			await loggingService.configure(config, storage);
 
 			const newAppenderCount = internalLogger.getEffectiveAppenders().length;
 			expect(newAppenderCount).toBe(oldAppenderCount + 1);
@@ -712,4 +733,60 @@ describe("LoggingService", () => {
 		});
 	});
 
+	describe("removeLogMessagesFromIonicStorage(ionicStorageKey: string): void", () => {
+		const ionicStorageKey = 'xxx';
+		const loggerName = 'myLogger';
+		beforeEach(async () => {
+			const config: LoggingServiceConfiguration = {
+				logLevels: [
+					{
+						loggerName,
+						logLevel: 'INFO'
+					}
+				],
+				ionicStorageAppender: {
+					ionicStorageKey,
+					threshold: "INFO",
+					maxMessages: 1000
+				},
+			};
+
+			await loggingService.configure(config, storage);
+
+		});
+
+		it("removes messages", fakeAsync(() => {
+			const messagesIn = [{
+				level: "DEBUG",
+				logger: "myLogger",
+				message: ["myMessage"],
+				methodName: "myMethod",
+				timeStamp: new Date(),
+			}];
+
+			const internalLoggerMe = loggingService.getLogger(loggerName);
+			internalLoggerMe.info(JSON.stringify(messagesIn));
+			tick();
+
+			const appenders = internalLoggerMe.getInternalLogger().getEffectiveAppenders();
+
+			const ionicStorageAppender = appenders.find((a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as IonicStorageAppender;
+			expect(ionicStorageAppender).toBeDefined();
+			expect(ionicStorageAppender.getLogMessages().length).toEqual(1)
+			console.log(`ionicStorageAppender=${inspect(ionicStorageAppender)}`);
+			loggingService.logMessagesChanged.subscribe(async () => {
+				console.log(`storage keys =${await storage.keys()}`);
+				const items = await storage.get(ionicStorageKey);
+				expect(items).toBeNull();
+				const ionicStorageAppender: IonicStorageAppender = loggingService.getAllIonicStorageAppenders()
+					.find(appender => appender.getIonicStorageKey() === ionicStorageKey);
+				expect(ionicStorageAppender).toBeDefined();
+				expect(ionicStorageAppender.getLogMessages().length).toEqual(0)
+
+			});
+			loggingService.removeLogMessagesFromIonicStorage(ionicStorageKey);
+
+		}));
+
+	});
 });
