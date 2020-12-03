@@ -219,7 +219,7 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	 * Removes all messages from ionic storage.
 	 * Mainly for unit testing purposes.
 	 */
-	public async  clearLog(): Promise<void> {
+	public async clearLog(): Promise<void> {
 		this.logMessages = [];
 		await IonicStorageAppender.ionicStorage.remove(this.ionicStorageKey);
 	}

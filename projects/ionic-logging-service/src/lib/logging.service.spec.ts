@@ -27,9 +27,9 @@ describe("LoggingService", () => {
 				LoggingService,
 			],
 		});
-		loggingService = TestBed.get(LoggingService);
-		httpMock = TestBed.get(HttpTestingController);
-		storage = TestBed.get(Storage);
+		loggingService = TestBed.inject(LoggingService);
+		httpMock = TestBed.inject(HttpTestingController);
+		storage = TestBed.inject(Storage);
 	});
 
 	afterEach(() => {
