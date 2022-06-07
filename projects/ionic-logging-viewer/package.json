@@ -14,7 +14,10 @@
 		"mobile",
 		"logging",
 		"log4javascript"
-	],
+  ],
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
 	"peerDependencies": {
 		"@angular/common": "^9.0.0",
 		"@angular/core": "^9.0.0",
