@@ -207,10 +207,10 @@ export class IonicStorageAppender extends log4javascript.Appender {
 	}
 
 	/**
- * Gets all messages stored in ionic storage.
- * Mainly for unit testing purposes.
- * @return stored messages
- */
+	 * Gets all messages stored in ionic storage.
+	 * Mainly for unit testing purposes.
+	 * @return stored messages
+	 */
 	public getLogMessages(): LogMessage[] {
 		return this.logMessages;
 	}
