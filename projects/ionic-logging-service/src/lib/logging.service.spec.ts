@@ -782,9 +782,6 @@ describe("LoggingService", () => {
 			tick();
 
 			const appenders = internalLoggerMe.getInternalLogger().getEffectiveAppenders();
-			console.warn('appenders', appenders);
-			
-
 			const ionicStorageAppender = appenders.find(
 				(a) => a.toString() === "Ionic.Logging.IonicStorageAppender") as IonicStorageAppender;
 			expect(ionicStorageAppender).toBeDefined();
