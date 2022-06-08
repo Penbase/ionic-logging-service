@@ -16,6 +16,7 @@ module.exports = function (config) {
 			require('karma-junit-reporter')
 		],
 		client: {
+      		captureConsole: true,
 			clearContext: false // leave Jasmine Spec Runner output visible in browser
 		},
 		coverageIstanbulReporter: {

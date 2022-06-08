@@ -16,8 +16,8 @@
 		"log4javascript"
 	],
 	"peerDependencies": {
-		"@angular/common": "^9.0.0",
-		"@angular/core": "^9.0.0"
+		"@angular/common": "^11.2.14",
+		"@angular/core": "^11.2.14"
 	},
 	"dependencies": {
     "log4javascript": "^1.4.15",
