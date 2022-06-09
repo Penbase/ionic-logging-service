@@ -728,7 +728,7 @@ describe("LoggingService", () => {
 			expect(ionicStorageAppender.getMaxMessages()).toBe(250);
 		});
 
-		xit("ionicStorageAppender has given max messages", async () => {
+		it("ionicStorageAppender has given max messages", async () => {
 
 			const config: LoggingServiceConfiguration = {
 				ionicStorageAppender: {
@@ -768,7 +768,7 @@ describe("LoggingService", () => {
 
 		});
 
-		xit("removes messages", fakeAsync(() => {
+		it("removes messages", fakeAsync(() => {
 			const messagesIn = [{
 				level: "DEBUG",
 				logger: "myLogger",
@@ -787,14 +787,14 @@ describe("LoggingService", () => {
 			expect(ionicStorageAppender).toBeDefined();
 			expect(ionicStorageAppender.getLogMessages().length).toEqual(1);
 			console.log(`ionicStorageAppender=${inspect(ionicStorageAppender)}`);
+
 			loggingService.logMessagesChanged.subscribe(async () => {
 				console.log(`storage keys =${await storage.keys()}`);
 				const items = await storage.get(ionicStorageKey);
 				expect(items).toBeNull();
-				const ionicStorageAppender2: IonicStorageAppender = loggingService.getAllIonicStorageAppenders().find(
-					appender => appender.getIonicStorageKey() === ionicStorageKey);
-				expect(ionicStorageAppender2).toBeDefined();
-				expect(ionicStorageAppender2.getLogMessages().length).toEqual(0);
+				const ionicStorageAppender2Array: IonicStorageAppender[] = loggingService.getAllIonicStorageAppenders();
+				expect(ionicStorageAppender2Array).toBeDefined();
+				expect(ionicStorageAppender2Array.length).toEqual(0);
 
 			});
 			loggingService.removeLogMessagesFromIonicStorage(ionicStorageKey);
