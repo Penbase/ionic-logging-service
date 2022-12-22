@@ -17,9 +17,9 @@
 					},
 					"configurations": {
 						"production": {
-							"project": "projects/ionic-logging-service/ng-package.prod.json"
-						,              "tsConfig": "projects/ionic-logging-service/tsconfig.lib.prod.json"
-}
+							"project": "projects/ionic-logging-service/ng-package.prod.json",
+							"tsConfig": "projects/ionic-logging-service/tsconfig.lib.prod.json"
+						}
 					}
 				},
 				"test": {
@@ -32,14 +32,11 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": [
-							"projects/ionic-logging-service/tsconfig.lib.json",
-							"projects/ionic-logging-service/tsconfig.spec.json"
-						],
-						"exclude": [
-							"**/node_modules/**"
+						"lintFilePatterns": [
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.spec.ts",
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.ts"
 						]
 					}
 				}
@@ -59,9 +56,9 @@
 					},
 					"configurations": {
 						"production": {
-							"project": "projects/ionic-logging-viewer/ng-package.prod.json"
-						,              "tsConfig": "projects/ionic-logging-viewer/tsconfig.lib.prod.json"
-}
+							"project": "projects/ionic-logging-viewer/ng-package.prod.json",
+							"tsConfig": "projects/ionic-logging-viewer/tsconfig.lib.prod.json"
+						}
 					}
 				},
 				"test": {
@@ -74,14 +71,11 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": [
-							"projects/ionic-logging-viewer/tsconfig.lib.json",
-							"projects/ionic-logging-viewer/tsconfig.spec.json"
-						],
-						"exclude": [
-							"**/node_modules/**"
+						"lintFilePatterns": [
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.spec.ts",
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.ts"
 						]
 					}
 				}
@@ -188,14 +182,11 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": [
-							"projects/ionic-logging-viewer-app/tsconfig.app.json",
-							"projects/ionic-logging-viewer-app/tsconfig.spec.json"
-						],
-						"exclude": [
-							"**/node_modules/**"
+						"lintFilePatterns": [
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.spec.ts",
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.ts"
 						]
 					}
 				}
@@ -219,11 +210,11 @@
 					}
 				},
 				"lint": {
-					"builder": "@angular-devkit/build-angular:tslint",
+					"builder": "@angular-eslint/builder:lint",
 					"options": {
-						"tsConfig": "projects/ionic-logging-viewer-app-e2e/tsconfig.e2e.json",
-						"exclude": [
-							"**/node_modules/**"
+						"lintFilePatterns": [
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.spec.ts",
+							"projects/ionic-logging-viewer-app-e2e/src/**/*.ts"
 						]
 					}
 				}
