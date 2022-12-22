@@ -11,7 +11,7 @@ import { Logger } from "./logger.model";
 import { LoggingServiceConfiguration } from "./logging-service.configuration";
 import { LoggingService } from "./logging.service";
 import { MemoryAppender } from "./memory-appender.model";
-import { IonicStorageModule, Storage } from "@ionic/storage";
+import { IonicStorageModule, Storage } from "@ionic/storage-angular";
 import { inspect } from "util";
 
 describe("LoggingService", () => {
