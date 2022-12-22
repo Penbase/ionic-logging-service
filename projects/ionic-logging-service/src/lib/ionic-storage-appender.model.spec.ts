@@ -15,6 +15,7 @@ describe("IonicStorageAppender", () => {
 			providers: []
 		}).compileComponents();
 		storage = TestBed.inject(Storage);
+		await storage.create();
 	});
 
 	afterEach(() => {

@@ -30,6 +30,7 @@ describe("LoggingService", () => {
 		loggingService = TestBed.inject(LoggingService);
 		httpMock = TestBed.inject(HttpTestingController);
 		storage = TestBed.inject(Storage);
+		await storage.create();
 	});
 
 	afterEach(() => {

@@ -42,8 +42,8 @@
   },
   "dependencies": {
     "@angular/common": "^14.2.12",
-    "@angular/core": "^14.2.12",
     "@angular/compiler": "^14.2.12",
+    "@angular/core": "^14.2.12",
     "@angular/forms": "^14.2.12",
     "@angular/platform-browser": "^14.2.12",
     "@angular/platform-browser-dynamic": "^14.2.12",
@@ -51,9 +51,11 @@
     "@ionic/angular": "^6.4.0",
     "@ionic/storage-angular": "^3.0.6",
     "ionicons": "^6.0.4",
+    "karma-coverage": "^2.2.0",
     "log4javascript": "^1.4.15",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "util": "^0.12.5",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
