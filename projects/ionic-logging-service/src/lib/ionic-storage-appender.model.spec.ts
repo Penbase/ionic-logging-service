@@ -1,9 +1,9 @@
 import { IonicStorageAppender } from "./ionic-storage-appender.model";
 // tslint:disable:no-magic-numbers
 import * as log4javascript from "log4javascript";
-import { IonicStorageModule } from "@ionic/storage";
+import { IonicStorageModule } from "@ionic/storage-angular";
 import { TestBed } from "@angular/core/testing";
-import { Storage } from "@ionic/storage";
+import { Storage } from "@ionic/storage-angular";
 import { IonicStorageAppenderConfiguration } from "./ionic-storage-appender.configuration";
 
 describe("IonicStorageAppender", () => {
@@ -15,6 +15,7 @@ describe("IonicStorageAppender", () => {
 			providers: []
 		}).compileComponents();
 		storage = TestBed.inject(Storage);
+		await storage.create();
 	});
 
 	afterEach(() => {

@@ -4,7 +4,7 @@ import { IonicStorageAppenderConfiguration } from "./ionic-storage-appender.conf
 import { LogLevelConverter } from "./log-level.converter";
 import { LogLevel } from "./log-level.model";
 import { LogMessage } from "./log-message.model";
-import { Storage } from "@ionic/storage";
+import { Storage } from "@ionic/storage-angular";
 /**
  * An appender which stores the log messages in the ionic local storage (SQL lite).
  *

@@ -1,5 +1,11 @@
 # Breaking Changes
 
+## Version 14
+
+- Update to Angular 14
+- Use webpack 5 (TU)
+- Migration tslint to eslint
+
 ## Version 11
 
 - update to Angular 11
