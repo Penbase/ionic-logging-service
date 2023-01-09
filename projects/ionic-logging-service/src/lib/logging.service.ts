@@ -10,7 +10,7 @@ import { LogMessage } from "./log-message.model";
 import { Logger } from "./logger.model";
 import { LoggingServiceConfiguration } from "./logging-service.configuration";
 import { MemoryAppender } from "./memory-appender.model";
-import { Storage } from "@ionic/storage";
+import { Storage } from "@ionic/storage-angular";
 
 /**
  * Service for logging functionality.
