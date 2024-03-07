@@ -18,8 +18,6 @@ export function configureLogging(loggingService: LoggingService): () => void {
 	declarations: [
 		AppComponent
 	],
-	entryComponents: [
-	],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(),
