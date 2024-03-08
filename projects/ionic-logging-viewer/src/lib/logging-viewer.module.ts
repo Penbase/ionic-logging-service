@@ -22,8 +22,6 @@ import { LoggingViewerModalComponent } from "./logging-viewer-modal/logging-view
 		LoggingViewerLevelsComponent,
 		LoggingViewerModalComponent
 	],
-	entryComponents: [
-	],
 	exports: [
 		LoggingViewerComponent,
 		LoggingViewerSearchComponent,

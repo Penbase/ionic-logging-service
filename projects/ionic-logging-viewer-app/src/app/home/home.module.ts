@@ -23,10 +23,6 @@ import { HomePage } from "./home.page";
 	],
 	declarations: [
 		HomePage,
-	],
-	entryComponents: [
-		HomePage,
-		LoggingViewerModalComponent
 	]
 })
 export class HomePageModule { }
