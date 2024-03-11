@@ -44,7 +44,7 @@ pipeline {
         stage('Build library and publish') {
             steps {
                 script {
-                    nodejs(nodeJSInstallationName: 'nodejs16.14.2') {
+                    nodejs(nodeJSInstallationName: 'nodejs16') {
                         sh "npm install"
                         sh "cd " + INSTALL_LOCATION + " && " + " npm install"
                         sh "npm run test-ci"
