@@ -1,5 +1,10 @@
 # Breaking Changes
 
+## Version 16
+
+- Update to Angular 16
+- Upgrading Puppeteer to a non deprecated version. Puppeteer's old version was blocking the tests.
+
 ## Version 14
 
 - Update to Angular 14
