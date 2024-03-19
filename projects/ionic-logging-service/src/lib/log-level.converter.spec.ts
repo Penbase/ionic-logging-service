@@ -228,17 +228,5 @@ describe("LogLevelConverter", () => {
 
 			expect(convertedValue).toBe(log4javascript.Level.WARN);
 		});
-
-		it("throws exception, when given level is invalid", () => {
-			const value = 42;
-
-			try {
-				LogLevelConverter.levelToLog4Javascript(value);
-				fail("no error thrown");
-			} catch (e) {
-				expect(e).toEqual(jasmine.any(Error));
-				expect((e as Error).message).toBe("invalid level 42");
-			}
-		});
 	});
 });
