@@ -1,6 +1,6 @@
 {
 	"name": "ionic-logging-viewer",
-	"version": "14.0.0",
+	"version": "17.0.0",
 	"description": "Viewer component for logs written by ionic-logging-service",
 	"author": {
 		"name": "Markus Wagner",
@@ -19,11 +19,11 @@
 		"tslib": "^2.0.0"
 	},
 	"peerDependencies": {
-		"@angular/common": "^16.0.0",
-		"@angular/core": "^16.0.0",
-		"@ionic/angular": "^6.4.0",
-		"ionic-logging-service": "^14.0.0",
-		"ionicons": "^6.0.4"
+		"@angular/common": ">=17.0.0",
+		"@angular/core": ">=17.0.0",
+		"@ionic/angular": ">=7.0.0",
+		"ionic-logging-service": "^18.0.0",
+		"ionicons": ">=7.0.0"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.47.0",

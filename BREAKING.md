@@ -1,5 +1,9 @@
 # Breaking Changes
 
+## Version 17
+
+- Update to Angular 17
+
 ## Version 16
 
 - Update to Angular 16
