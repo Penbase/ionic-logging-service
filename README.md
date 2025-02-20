@@ -50,3 +50,13 @@ E2E tests for `ionic-logging-viewer-app`.
 Useful commands:
 
 * `ng e2e --project ionic-logging-viewer-app-e2e`
+
+## Upgrade library
+
+To upgrade the library and then make new Angular version compatible, follow previous pull requests.
+
+Upgrade versions in `package.json` files at root level and in `projects/ionic-logging-service/package.json`.
+
+Then run `rm -rf node_modules package-lock.json && npm install` at root level. Do not run `npm install` in `projects/ionic-logging-service` directory, otherwise is will cause loop issues during testing.
+
+Also for each upgrade make sure tests are passing, run `npm run test-ci`.

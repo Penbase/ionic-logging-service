@@ -1,6 +1,6 @@
 {
 	"name": "ionic-logging-service",
-	"version": "17.0.0",
+	"version": "18.0.0",
 	"description": "Logging functionalities for apps built with Ionic framework",
 	"author": {
 		"name": "Markus Wagner",
@@ -16,16 +16,16 @@
 		"log4javascript"
 	],
 	"peerDependencies": {
-		"@angular/common": ">=17.0.0",
-		"@angular/core": ">=17.0.0"
+		"@angular/common": "^18.0.0",
+		"@angular/core": "^18.0.0"
 	},
 	"dependencies": {
 		"log4javascript": "^1.4.15"
 	},
 	"devDependencies": {
-		"tslib": "^2.0.0",
-		"@typescript-eslint/eslint-plugin": "^5.47.0",
-		"@typescript-eslint/parser": "^5.47.0",
-		"eslint": "^8.30.0"
+		"tslib": "^2.3.1",
+		"@typescript-eslint/eslint-plugin": "^7.3.0",
+		"@typescript-eslint/parser": "^7.3.0",
+		"eslint": "^8.57.0"
 	}
 }
