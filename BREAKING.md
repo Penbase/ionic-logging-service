@@ -1,5 +1,10 @@
 # Breaking Changes
 
+## Version 18
+
+- Update to Angular 18
+- Add an entry in README.md to explain how to upgrade the library over the time
+
 ## Version 17
 
 - Update to Angular 17

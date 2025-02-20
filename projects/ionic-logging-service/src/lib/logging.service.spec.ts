@@ -582,7 +582,7 @@ describe("LoggingService", () => {
 			localStorage.clear();
 		});
 
-		it("removes messages", async (done: () => void) => {
+		it("removes messages", async () => {
 			const localStorageKey = "xxx";
 			const loggerName = "myLogger";
 			const config: LoggingServiceConfiguration = {
@@ -617,17 +617,18 @@ describe("LoggingService", () => {
 			expect(localStorageAppender).toBeDefined();
 			expect(localStorageAppender.getLogMessages().length).toEqual(1);
 
-			loggingService.logMessagesChanged.subscribe(() => {
-				expect(localStorage.getItem(localStorageKey)).toBeNull();
-				const localStorageAppender2: LocalStorageAppender = loggingService.getAllLocalStorageAppenders().find(
-					appender => appender.getLocalStorageKey() === localStorageKey
+			return new Promise<void>((resolve) => {
+				loggingService.logMessagesChanged.subscribe(() => {
+					expect(localStorage.getItem(localStorageKey)).toBeNull();
+					const localStorageAppender2: LocalStorageAppender = loggingService.getAllLocalStorageAppenders().find(
+						appender => appender.getLocalStorageKey() === localStorageKey
 					);
-				expect(localStorageAppender2).toBeDefined();
-				expect(localStorageAppender2.getLogMessages().length).toEqual(0);
-				done();
+					expect(localStorageAppender2).toBeDefined();
+					expect(localStorageAppender2.getLogMessages().length).toEqual(0);
+					resolve();
+				});
+				loggingService.removeLogMessagesFromLocalStorage(localStorageKey);
 			});
-			loggingService.removeLogMessagesFromLocalStorage(localStorageKey);
-
 		});
 	});
 
