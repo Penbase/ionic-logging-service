@@ -1,5 +1,6 @@
 ﻿// tslint:disable:no-magic-numbers
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { provideHttpClient } from "@angular/common/http";
+import { HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing";
 import { fakeAsync, TestBed, tick } from "@angular/core/testing";
 
 import * as log4javascript from "log4javascript";
@@ -22,9 +23,11 @@ describe("LoggingService", () => {
 
 	beforeEach(async () => {
 		TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule, IonicStorageModule.forRoot()],
+			imports: [IonicStorageModule.forRoot()],
 			providers: [
 				LoggingService,
+				provideHttpClient(),
+    		provideHttpClientTesting(),
 			],
 		});
 		loggingService = TestBed.inject(LoggingService);

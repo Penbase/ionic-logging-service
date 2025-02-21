@@ -46,7 +46,6 @@ pipeline {
                 script {
                     nodejs(nodeJSInstallationName: 'nodejs18') {
                         sh "npm install"
-                        sh "cd " + INSTALL_LOCATION + " && " + " npm install"
                         sh "npm run test-ci"
                         if (env.TAG_NAME) {
                             updateVersion(env.TAG_NAME);
